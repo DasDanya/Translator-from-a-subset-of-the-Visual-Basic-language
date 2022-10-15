@@ -1,0 +1,17 @@
+E:\Теория автоматов и формальных языков\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.exe
+E:\Теория автоматов и формальных языков\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.deps.json
+E:\Теория автоматов и формальных языков\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.runtimeconfig.json
+E:\Теория автоматов и формальных языков\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.runtimeconfig.dev.json
+E:\Теория автоматов и формальных языков\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.dll
+E:\Теория автоматов и формальных языков\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.pdb
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.AssemblyReference.cache
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.Form1.resources
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.Form2.resources
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.GenerateResource.cache
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.GeneratedMSBuildEditorConfig.editorconfig
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.AssemblyInfoInputs.cache
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.AssemblyInfo.cs
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.CoreCompileInputs.cache
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.dll
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.pdb
+E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.genruntimeconfig.cache
