@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Теория автоматов и формальных языков\\Machines\\Machines\\Machines.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Translator-from-a-subset-of-the-Visual-Basic-language\\Machines\\Machines\\Machines.csproj",
       "projectName": "Machines",
-      "projectPath": "E:\\Теория автоматов и формальных языков\\Machines\\Machines\\Machines.csproj",
+      "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Translator-from-a-subset-of-the-Visual-Basic-language\\Machines\\Machines\\Machines.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "E:\\Теория автоматов и формальных языков\\Machines\\Machines\\obj\\",
+      "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Translator-from-a-subset-of-the-Visual-Basic-language\\Machines\\Machines\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -119,7 +119,7 @@ namespace Machines
         }
         private void AnalysisButton_Click(object sender, EventArgs e)
         {
-            if (CodeRichTextBox.Text == "")
+            if (string.IsNullOrEmpty(CodeRichTextBox.Text))
                 MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {              
@@ -252,7 +252,8 @@ namespace Machines
 
                     if (error || !correctSymbol) // Обнаружен некорректный символ или превысили планку длины лексемы
                     {
-                        string errorMessage = string.Format("Был найден некорректный символ в лексеме - {0}",text[i]);
+                        string sym = text[i] == ' ' ? "пробел" : text[i].ToString();
+                        string errorMessage = string.Format("Было найдено некорректное значение - {0}",sym);
                         MessageBox.Show(errorMessage, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         ResultButton.Enabled = false;

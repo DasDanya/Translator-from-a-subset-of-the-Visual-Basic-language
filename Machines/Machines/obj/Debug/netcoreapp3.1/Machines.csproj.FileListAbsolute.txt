@@ -15,3 +15,20 @@ E:\Теория автоматов и формальных языков\Machines
 E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.dll
 E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.pdb
 E:\Теория автоматов и формальных языков\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.genruntimeconfig.cache
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.exe
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.deps.json
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.runtimeconfig.json
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.runtimeconfig.dev.json
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.dll
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.pdb
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.Form1.resources
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.Form2.resources
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.GenerateResource.cache
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.dll
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.pdb
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.genruntimeconfig.cache
