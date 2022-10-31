@@ -12,26 +12,17 @@ namespace Machines
         {
             InitializeComponent();
         }
-        
+
         private void Form1_Load(object sender, EventArgs e)
         {
             ResultButton.Enabled = false;
             string path = Path.Combine(Directory.GetCurrentDirectory() + "\\code.txt");
             ReadFromFile(path);
-
         }
 
         string buffer = ""; // Строка для лексического анализа
         Status status = Status.None; // Статус символа
 
-        List<Lexeme> lexemes = new List<Lexeme>(); // Список лексем
-        List<string> variables = new List<string>(); // Список переменных
-        List<string> literals = new List<string>(); // Список литералов
-        List<Token> tokens = new List<Token>(); // Список токенов
-
-        List <string> separators = new List<string> {"+", "-", "=", "/", "<", ">","*", "(", ")", "<>", "/-" }; // Массив одинарных разделителей
-        List<string> keyWords = new List<string> { "Dim", "Integer", "Boolean", "Double", "As", "If", "Then", "Else", "End", "Not", "And", "Or", "Xor", "AndAlso", "OrElse"}; // список ключевый слов
-         
 
         /// <summary>
         /// Статусы для лексического анализа
@@ -43,7 +34,6 @@ namespace Machines
             I,
             D
         }
-
         /// <summary>
         /// Считывает данные из файла и записывает в richtextbox
         /// </summary>
@@ -51,244 +41,235 @@ namespace Machines
         private void ReadFromFile(string path)
         {
             StreamReader reader = new StreamReader(path);
-
-            CodeRichTextBox.Text = reader.ReadToEnd();
+            CodeTextBox.Text = reader.ReadToEnd();
             reader.Close();
-
-
         }
-
         private void SelectFileButton_Click(object sender, EventArgs e)
         {
-            
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    ReadFromFile(openFileDialog.FileName);                                
+                    ReadFromFile(openFileDialog.FileName);
             }
         }
- 
+
         /// <summary>
         /// Записывает данные из Richtextbox в строку, ставя пробелы между строками Richtextbox
         /// </summary>
         /// <param name="str">Строка для заполнения</param>
         /// <returns>Заполненная строка</returns>
-        private string GetDataFromRichTextBox(string str) 
+        private string GetDataFromRichTextBox(string str)
         {
-            
-            for (int i = 0; i < CodeRichTextBox.Lines.Length; i++)
+
+            for (int i = 0; i < CodeTextBox.Lines.Length; i++)
             {
-                for (int j = 0; j < CodeRichTextBox.Lines[i].Length; j++) 
+
+                for (int j = 0; j < CodeTextBox.Lines[i].Length; j++)
                 {
-                   
-                    if (CodeRichTextBox.Lines[i].Length - j != 1) // Если элемент непоследний в строке
+                    // Если в строке один знак - символ
+                    if (CodeTextBox.Lines[i].Length == 1 && !char.IsLetterOrDigit(CodeTextBox.Lines[i][j]))
                     {
-                        // Если текущий элемент не символ,а следующий - символ или текущий элемент - символ, а следующий - нет (Делаем пробелы между разделителем и неразделиетлем)
-                        if (((char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j]) || CodeRichTextBox.Lines[i][j] == ' ') && ((!char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j + 1])) && CodeRichTextBox.Lines[i][j + 1] != ' ')) || ((!char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j]) && CodeRichTextBox.Lines[i][j] != ' ') && (char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j + 1]) || CodeRichTextBox.Lines[i][j + 1] == ' ')))
+                        // Добавляем символ в строку и делаем перенос строки
+                        str = str + CodeTextBox.Lines[i][j] + ' ' + "/-";
+                        continue;
+
+                    }
+
+
+                    if (CodeTextBox.Lines[i].Length - j != 1) // Если элемент непоследний в строке
+                    {
+                        // Если текущий элемент не символ,а следующий - символ или текущий элемент - символ, а следующий - нет (Делаем пробелы между разделителем и неразделителем)
+
+                        if (((char.IsLetterOrDigit(CodeTextBox.Lines[i][j]) || CodeTextBox.Lines[i][j] == ' ') && ((!char.IsLetterOrDigit(CodeTextBox.Lines[i][j + 1])) && CodeTextBox.Lines[i][j + 1] != ' ')) || ((!char.IsLetterOrDigit(CodeTextBox.Lines[i][j]) && CodeTextBox.Lines[i][j] != ' ') && (char.IsLetterOrDigit(CodeTextBox.Lines[i][j + 1]) || CodeTextBox.Lines[i][j + 1] == ' ')))
                         {
-                            str = str + CodeRichTextBox.Lines[i][j] + ' ';
+                            str = str + CodeTextBox.Lines[i][j] + ' ';
                         }
                         else
-                            str += CodeRichTextBox.Lines[i][j];
+                            str += CodeTextBox.Lines[i][j];
                     }
-                    else if (CodeRichTextBox.Lines[i].Length - j == 1) // Если элемент последний в строке
+                    else if (CodeTextBox.Lines[i].Length - j == 1) // Если элемент последний в строке
                     {
                         // Если последний элемент строки - символ и предпоследний элемент строки - символ
-                        if ((!char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j]) && CodeRichTextBox.Lines[i][j] != ' ') && (!char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j - 1]) && CodeRichTextBox.Lines[i][j - 1] != ' '))
-                            str += CodeRichTextBox.Lines[i][j];
-
+                        if ((!char.IsLetterOrDigit(CodeTextBox.Lines[i][j]) && CodeTextBox.Lines[i][j] != ' ') && (!char.IsLetterOrDigit(CodeTextBox.Lines[i][j - 1]) && CodeTextBox.Lines[i][j - 1] != ' '))
+                            str += CodeTextBox.Lines[i][j];
 
                         // Если последний элемент строки - символ и предпоследний элемент строки - не символ
-                        else if ((!char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j]) && CodeRichTextBox.Lines[i][j] != ' ') && (char.IsLetterOrDigit(CodeRichTextBox.Lines[i][j - 1]) || CodeRichTextBox.Lines[i][j - 1] == ' '))
-                            str = str + ' ' + CodeRichTextBox.Lines[i][j];
+                        else if ((!char.IsLetterOrDigit(CodeTextBox.Lines[i][j]) && CodeTextBox.Lines[i][j] != ' ') && (char.IsLetterOrDigit(CodeTextBox.Lines[i][j - 1]) || CodeTextBox.Lines[i][j - 1] == ' '))
 
-                        else                       
-                            str = str + CodeRichTextBox.Lines[i][j];
-                        
+                            str = str + ' ' + CodeTextBox.Lines[i][j];
+
+                        else
+                            str = str + CodeTextBox.Lines[i][j];
+
 
                         str = str + ' ' + "/-"; // знак /- перенос на новую строку 
                     }
                 }
-                
-                str += ' '; // Разделяем строки richtextbox пробелом
-                
-            }
 
+                str += ' '; // Разделяем строки richtextbox пробелом
+
+            }
             return str;
         }
         private void AnalysisButton_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(CodeRichTextBox.Text))
+            if (CodeTextBox.Text == "")
                 MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
-            {              
+            {
                 LexicalAnalysis(); // Производим лексический анализ
-                tokens = Token.GeneratingListTokens(lexemes, keyWords, separators, variables, literals); // Получаем список токенов
+                Classification.tokens = Token.GeneratingListTokens(Classification.lexemes, Classification.KeyWords, Classification.separators, Classification.variables, Classification.literals); // Получаем список токенов
             }
         }
-
         /// <summary>
         /// Выполняет лексический анализ
         /// </summary>
         private void LexicalAnalysis()
         {
-            try
+            string text = "";
+            bool error = false, correctSymbol = false;
+            text = GetDataFromRichTextBox(text);
+            for (int i = 0; i < text.Length; i++)
             {
-                string text = "";
-                bool error = false, correctSymbol = false;
+                if (status == Status.None && Correctness.CharIsEnglishChar(text[i])) // Если анг буква                    
+                    status = Status.I;
 
-                text = GetDataFromRichTextBox(text);
+                if (status == Status.None && char.IsDigit(text[i])) // Если число
+                    status = Status.D;
 
-                for (int i = 0; i < text.Length; i++)
+                if (status == Status.None && Classification.SingleSeparations.Contains(text[i])) // Если символ
+                    status = Status.R;
+
+                if (status != Status.None)
                 {
-                    if (status == Status.None && Correctness.CharIsEnglishChar(text[i])) // Если анг буква
-                        status = Status.I;
 
-                    if (status == Status.None && char.IsDigit(text[i])) // Если число
-                        status = Status.D;
-
-                    if (status == Status.None && separators.Contains(text[i].ToString())) // Если символ
-                        status = Status.R;
-
-
-                    if (status != Status.None)
+                    if (status == Status.I) // Ветка буквы
                     {
-                        if (status == Status.I) // Ветка буквы
+                        correctSymbol = (Correctness.CharIsEnglishChar(text[i]) || char.IsDigit(text[i])); // буква или число
+
+                        if (correctSymbol && text.Length - i != 1) // Если не пробел и не последний символ
                         {
-                            correctSymbol = (Correctness.CharIsEnglishChar(text[i]) || char.IsDigit(text[i])); // проверка на корректность символа 
-
-                            if (correctSymbol && text.Length - i != 1) // Если не пробел и не последний символ
-                            {
-                                buffer += text[i];
-
-                            }
-                            else if (text.Length - i == 1 && correctSymbol) // если последний символ richtextbox
-                            {
-                                buffer += text[i];
-
-                                error = SuccessfulLexemeAddition(buffer, 'I'); // Проверка на длину строки и сохранение лексемы в случае успеха
-
-                                ClearOfBuffer();
-                            }
-                            else if (text[i] == ' ') // Если пробел
-                            {
-                                correctSymbol = true;
-                                error = SuccessfulLexemeAddition(buffer, 'I'); // Проверка на длину строки и сохранение лексемы в случае успеха
-
-                                ClearOfBuffer();
-
-                            }
-
-                            else
-                                error = true;
+                            buffer += text[i];
                         }
-
-                        if (status == Status.D) // Ветка числа
+                        else if (text.Length - i == 1 && correctSymbol) // если последний символ richtextbox
                         {
-                            correctSymbol = char.IsDigit(text[i]);
+                            buffer += text[i];
+                            error = SuccessfulLexemeAddition(buffer, 'I'); // Проверка на длину строки и сохранение лексемы в случае успеха
 
-                            if (correctSymbol && text.Length - i != 1) // Если не конец richtextbox и символ - число
-                            {
-                                buffer += text[i];
-                            }
-
-                            else if (correctSymbol && text.Length - i == 1) // Если последний символ richtextbox
-                            {
-                                buffer += text[i];
-                                error = SuccessfulLexemeAddition(buffer, 'D'); // Проверка на длину строки и сохранение лексемы в случае успеха
-
-                                ClearOfBuffer();
-                            }
-                            else if (text[i] == ' ') // Если пробел
-                            {
-                                correctSymbol = true;
-                                error = SuccessfulLexemeAddition(buffer, 'D'); // Проверка на длину строки и сохранение лексемы в случае успеха
-
-                                ClearOfBuffer();
-
-                            }
-                            else
-                                error = true;
-
+                            ClearOfBuffer();
                         }
-
-                        if (status == Status.R)
+                        else if (text[i] == ' ') // Если пробел
                         {
-                            correctSymbol = separators.Contains(text[i].ToString());
+                            correctSymbol = true;
+                            error = SuccessfulLexemeAddition(buffer, 'I'); // Проверка на длину строки и сохранение лексемы в случае успеха
 
-                            if (correctSymbol)
+                            ClearOfBuffer();
+                        }
+                        else
+                            error = true;
+                    }
+
+                    if (status == Status.D) // Ветка числа
+                    {
+                        correctSymbol = char.IsDigit(text[i]); // Число или нет
+                        if (correctSymbol && text.Length - i != 1) // Если не конец richtextbox и символ - число
+                        {
+                            buffer += text[i];
+                        }
+                        else if (correctSymbol && text.Length - i == 1) // Если последний символ richtextbox
+                        {
+                            buffer += text[i];
+                            error = SuccessfulLexemeAddition(buffer, 'D'); //  Проверка на длину строки и сохранение лексемы в случае успеха
+
+                            ClearOfBuffer();
+                        }
+                        else if (text[i] == ' ') // Если пробел
+                        {
+                            correctSymbol = true;
+                            error = SuccessfulLexemeAddition(buffer, 'D'); // Проверка на длину строки и сохранение лексемы в случае успеха
+
+                            ClearOfBuffer();
+                        }
+                        else
+                            error = true;
+                    }
+                    if (status == Status.R) // Ветка символа
+                    {
+                        correctSymbol = Classification.SingleSeparations.Contains(text[i]); // Проверка на корректный символ
+                        if (correctSymbol) // Если корректный и собираем разделитель в буфере
+                        {
+                            if (buffer.Length < 2) // Если менее трех символов 
+                                buffer += text[i];
+                            else // Если разделить из трех символов
                             {
-                                if (buffer.Length < 2)
-                                    buffer += text[i];
-                                else
-                                {
-                                    error = true;
-                                    ClearOfBuffer();
-                                }
+                                error = true;
+                                ClearOfBuffer();
                             }
-                            else if (text[i] == ' ' || Correctness.CharIsEnglishChar(text[i]) || char.IsDigit(text[i]))
+                        }
+                        else if (text[i] == ' ' || Correctness.CharIsEnglishChar(text[i]) || char.IsDigit(text[i])) // Если закончился разделитель
+                        {
+                            if (buffer.Length == 1) // Если одиночный
                             {
-                                if (separators.Contains(buffer))
+                                Lexeme lex = new Lexeme(buffer, 'R');
+                                Classification.lexemes.Add(lex);
+                                correctSymbol = true;
+                                ClearOfBuffer();
+                            }
+                            else if (buffer.Length == 2) // Если двойной
+                            {
+                                if (Classification.DoubleSeparations.Contains(buffer)) // Есть ли в списке двойных разделителей
                                 {
                                     Lexeme lex = new Lexeme(buffer, 'R');
-                                    lexemes.Add(lex);
-
+                                    Classification.lexemes.Add(lex);
                                     correctSymbol = true;
-
                                     ClearOfBuffer();
                                 }
+                                else
+                                    error = true;
                             }
-                            else
-                                error = true;
                         }
-                    }
-                    else
-                    {
-                        if (text[i] != ' ' && !Correctness.CharIsEnglishChar(text[i]) && !char.IsDigit(text[i]) && !separators.Contains(text[i].ToString()))
+                        else
                             error = true;
-
-                    }
-
-                    if (error || !correctSymbol) // Обнаружен некорректный символ или превысили планку длины лексемы
-                    {
-                        string sym = text[i] == ' ' ? "пробел" : text[i].ToString();
-                        string errorMessage = string.Format("Было найдено некорректное значение - {0}",sym);
-                        MessageBox.Show(errorMessage, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        ResultButton.Enabled = false;
-
-                        ClearOfBuffer();
-                        lexemes.Clear();
-
-                        break;
                     }
                 }
-
-                if (!error && correctSymbol) // Ошибок нет 
+                else
                 {
-                    MessageBox.Show("Лексический анализ был успешно произведён!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ResultButton.Enabled = true;                  
+                    // Первый символ буфера - некорректный символ (не буква, не число, не разрешенный символ)
+                    if (text[i] != ' ' && !Correctness.CharIsEnglishChar(text[i]) && !char.IsDigit(text[i]) && !Classification.SingleSeparations.Contains(text[i]))
+                        error = true;
+                }
+
+                if (error || !correctSymbol && text[i] != ' ') // Обнаружен некорректный символ или превысили планку длины лексемы
+                {
+                    //if (text[i] == ' ') // Если проб
+                    //    continue;
+
+                    MessageBox.Show("Была найдена некорректная лексема!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ResultButton.Enabled = false;
+                    ClearOfBuffer();
+                    Classification.lexemes.Clear();
+                    break;
                 }
             }
-            catch (Exception ex) 
+            if (!error && correctSymbol) // Ошибок нет 
             {
-                MessageBox.Show(ex.Message, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Лексический анализ был успешно произведён!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ResultButton.Enabled = true;
             }
         }
 
         /// <summary>
         /// Очищает буффер и аннулирует статус
         /// </summary>
-        private void ClearOfBuffer() 
+        private void ClearOfBuffer()
         {
             buffer = "";
             status = Status.None;
-        
-        }
 
+        }
         /// <summary>
-        /// Добавляет лексему в список лексем
+        /// Добавляет лекскему в список лексем
         /// </summary>
         /// <param name="buffer">Лексема</param>
         /// <param name="type">Тип лексемы</param>
@@ -297,44 +278,37 @@ namespace Machines
         {
             bool error = false;
 
-            if (type == 'I')
+            if (type == 'I') // Если id
                 error = Correctness.IsErrorInLengthOfString(buffer);
-            else if (type == 'D')
+            else if (type == 'D') // Если число
                 error = Correctness.IsErrorInValueOfNumber(buffer);
 
             if (!error) // Если нет проблем для добавления лексемы
             {
                 Lexeme lex = new Lexeme(buffer, type);
-                lexemes.Add(lex); // Добавляем лексему в список
+                Classification.lexemes.Add(lex); // Добавляем лексему в список
 
-                if (type == 'I' && !keyWords.Contains(buffer) && !variables.Contains(buffer)) // Если это переменная, которой нет в списке переменных
-                    variables.Add(lex.Name); // Добавляем в список переменных
+                if (type == 'I' && !Classification.KeyWords.Contains(buffer) && !Classification.variables.Contains(buffer)) // Если это переменная, которой нет в списке переменных
+                    Classification.variables.Add(lex.Name); // Добавляем в список переменных
 
-                else if (type == 'D' && !literals.Contains(buffer)) // Если это литерал, которого нет в списке литералов
-                    literals.Add(lex.Name); // Добавляем в список литералов
+                else if (type == 'D' && !Classification.literals.Contains(buffer)) // Если это литерал, которого нет в списке литералов
+                    Classification.literals.Add(lex.Name); // Добавляем в список литералов
 
             }
 
             return error;
         }
 
+        
+
         private void ResultButton_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2(lexemes,separators, keyWords, variables,literals,tokens);
-            form2.Show();
+            ResultButton.Enabled = false;
 
-            ClearningOfLists(); // Очищаем список, чтобы не было повторов
-        }
+            Form2 form2 = new Form2();
+            form2.Show(); 
 
-        /// <summary>
-        /// Метод очистки методов
-        /// </summary>
-        private void ClearningOfLists() 
-        {
-            lexemes.Clear();
-            variables.Clear();
-            literals.Clear();
-            tokens.Clear();
         }
     }
 }
+

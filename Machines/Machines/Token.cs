@@ -8,14 +8,20 @@ namespace Machines
     /// <summary>
     /// Класс для хранения данных о таблице лексемы и индекса лексемы
     /// </summary>
-  public class Token
+    public class Token
     {
         int numberTable, indexLexeme;
 
+        /// <summary>
+        /// Номер таблицы
+        /// </summary>
         public int NumberTable { get { return numberTable; } }
+        /// <summary>
+        /// Индекс лексемы в таблице
+        /// </summary>
         public int IndexLexeme { get { return indexLexeme; } }
 
-        public Token(int numberTable, int indexLexeme) 
+        public Token(int numberTable, int indexLexeme)
         {
             this.numberTable = numberTable;
             this.indexLexeme = indexLexeme;
@@ -25,7 +31,7 @@ namespace Machines
         /// Метод для создания токенов, хранящих данные о номере таблицы, в которой находится лексема, и индексе лексемы в таблице
         /// </summary>
         /// <returns>Список токенов</returns>
-        public static List<Token> GeneratingListTokens(List<Lexeme> lexemes, List<string> keyWords, List<string> separators, List<string> variables, List<string> literals) 
+        public static List<Token> GeneratingListTokens(List<Lexeme> lexemes, List<string> keyWords, List<string> separators, List<string> variables, List<string> literals)
         {
             List<Token> tokens = new List<Token>();
 
@@ -66,3 +72,4 @@ namespace Machines
         }
     }
 }
+

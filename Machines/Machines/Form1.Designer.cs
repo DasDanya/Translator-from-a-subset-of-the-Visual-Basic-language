@@ -29,19 +29,11 @@ namespace Machines
         /// </summary>
         private void InitializeComponent()
         {
-            this.CodeRichTextBox = new System.Windows.Forms.RichTextBox();
             this.SelectFileButton = new System.Windows.Forms.Button();
             this.AnalysisButton = new System.Windows.Forms.Button();
             this.ResultButton = new System.Windows.Forms.Button();
+            this.CodeTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // CodeRichTextBox
-            // 
-            this.CodeRichTextBox.Location = new System.Drawing.Point(40, 42);
-            this.CodeRichTextBox.Name = "CodeRichTextBox";
-            this.CodeRichTextBox.Size = new System.Drawing.Size(392, 379);
-            this.CodeRichTextBox.TabIndex = 0;
-            this.CodeRichTextBox.Text = "";
             // 
             // SelectFileButton
             // 
@@ -73,15 +65,23 @@ namespace Machines
             this.ResultButton.UseVisualStyleBackColor = true;
             this.ResultButton.Click += new System.EventHandler(this.ResultButton_Click);
             // 
+            // CodeTextBox
+            // 
+            this.CodeTextBox.Location = new System.Drawing.Point(23, 42);
+            this.CodeTextBox.Multiline = true;
+            this.CodeTextBox.Name = "CodeTextBox";
+            this.CodeTextBox.Size = new System.Drawing.Size(392, 379);
+            this.CodeTextBox.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 450);
+            this.Controls.Add(this.CodeTextBox);
             this.Controls.Add(this.ResultButton);
             this.Controls.Add(this.AnalysisButton);
             this.Controls.Add(this.SelectFileButton);
-            this.Controls.Add(this.CodeRichTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -89,15 +89,15 @@ namespace Machines
             this.Text = "Главное меню";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox CodeRichTextBox;
         private System.Windows.Forms.Button SelectFileButton;
         private System.Windows.Forms.Button AnalysisButton;
         private System.Windows.Forms.Button ResultButton;
+        private System.Windows.Forms.TextBox CodeTextBox;
     }
 }
 
