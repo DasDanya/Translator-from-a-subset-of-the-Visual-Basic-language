@@ -145,10 +145,10 @@ namespace Machines
 
                 if (error || !correctSymbol && text[i] != ' ') // Обнаружен некорректный символ или превысили планку длины лексемы
                 {
-                    //if (text[i] == ' ') // Если проб
-                    //    continue;
+                    // Формируем сообщение об ошибке
+                    string errorMessage = string.Format("Был найден некорректный символ {0} в коде", text[i]); 
+                    MessageBox.Show(errorMessage, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    MessageBox.Show("Была найдена некорректная лексема!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ResultButton.Enabled = false;
                     ClearOfBuffer();
                     Classification.lexemes.Clear();

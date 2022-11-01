@@ -98,6 +98,8 @@ namespace Machines
             }
             return str;
         }
+
+        
         private void AnalysisButton_Click(object sender, EventArgs e)
         {
             if (CodeTextBox.Text == "")
