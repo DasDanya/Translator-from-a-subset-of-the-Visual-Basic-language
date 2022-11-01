@@ -76,20 +76,20 @@ namespace Machines
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(501, 27);
+            this.label2.Location = new System.Drawing.Point(492, 27);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(168, 20);
+            this.label2.Size = new System.Drawing.Size(183, 20);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Список ключевых слов";
+            this.label2.Text = "1. Список ключевых слов";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(501, 227);
+            this.label3.Location = new System.Drawing.Point(492, 227);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(159, 20);
+            this.label3.Size = new System.Drawing.Size(174, 20);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Список разделителей";
+            this.label3.Text = "2. Список разделителей";
             // 
             // VariablesTreeView
             // 
@@ -108,20 +108,20 @@ namespace Machines
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(790, 27);
+            this.label4.Location = new System.Drawing.Point(774, 27);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(152, 20);
+            this.label4.Size = new System.Drawing.Size(167, 20);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Список переменных";
+            this.label4.Text = "3. Список переменных";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(806, 227);
+            this.label5.Location = new System.Drawing.Point(790, 227);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(136, 20);
+            this.label5.Size = new System.Drawing.Size(151, 20);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Список литералов";
+            this.label5.Text = "4. Список литералов";
             // 
             // TokensTreeView
             // 
