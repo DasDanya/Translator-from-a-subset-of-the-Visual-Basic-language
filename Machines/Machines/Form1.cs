@@ -106,9 +106,9 @@ namespace Machines
                 MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                Translator translator = new Translator();
+                LexicalAnalysis translator = new LexicalAnalysis();
                 string text = "";
-                translator.LexicalAnalysis(GetDataFromRichTextBox(text), ResultButton); // Производим лексический анализ
+                translator.Analysis(GetDataFromRichTextBox(text), ResultButton); // Производим лексический анализ
 
                 Classification.tokens = Token.GeneratingListTokens(Classification.lexemes, Classification.KeyWords, Classification.separators, Classification.variables, Classification.literals); // Получаем список токенов
             }

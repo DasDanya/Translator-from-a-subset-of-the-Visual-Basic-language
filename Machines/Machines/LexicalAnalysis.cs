@@ -9,10 +9,10 @@ namespace Machines
     /// <summary>
     /// Класс транслятора 
     /// </summary>
-    public class Translator
+    public class LexicalAnalysis
     {
         string buffer = ""; // Строка для лексического анализа
-        Status status = Status.None; // Статус символа
+        Status status = Status.None; // Статус состояния
 
         /// <summary>
         /// Статусы для лексического анализа
@@ -26,9 +26,9 @@ namespace Machines
         }
 
         /// <summary>
-        /// Выполняет лексический анализ
+        /// Выполняет лексический анализ    
         /// </summary>
-        public void LexicalAnalysis(string text, Button ResultButton)
+        public void Analysis(string text, Button ResultButton)
         {
 
             bool error = false, correctSymbol = false;
@@ -166,27 +166,27 @@ namespace Machines
         /// <summary>
         /// Добавляет лекскему в список лексем
         /// </summary>
-        /// <param name="buffer">Лексема</param>
+        /// <param name="lexeme">Лексема</param>
         /// <param name="type">Тип лексемы</param>
         /// <returns>Есть ли ошибка в добавлении лексемы в список лексем </returns>
-        private bool SuccessfulLexemeAddition(string buffer, char type)
+        private bool SuccessfulLexemeAddition(string lexeme, char type)
         {
             bool error = false;
 
             if (type == 'I') // Если id
-                error = Correctness.IsErrorInLengthOfString(buffer);
+                error = Correctness.IsErrorInLengthOfString(lexeme);
             else if (type == 'D') // Если число
-                error = Correctness.IsErrorInValueOfNumber(buffer);
+                error = Correctness.IsErrorInValueOfNumber(lexeme);
 
             if (!error) // Если нет проблем для добавления лексемы
             {
-                Lexeme lex = new Lexeme(buffer, type);
+                Lexeme lex = new Lexeme(lexeme, type);
                 Classification.lexemes.Add(lex); // Добавляем лексему в список
 
-                if (type == 'I' && !Classification.KeyWords.Contains(buffer) && !Classification.variables.Contains(buffer)) // Если это переменная, которой нет в списке переменных
+                if (type == 'I' && !Classification.KeyWords.Contains(lexeme) && !Classification.variables.Contains(lexeme)) // Если это переменная, которой нет в списке переменных
                     Classification.variables.Add(lex.Name); // Добавляем в список переменных
 
-                else if (type == 'D' && !Classification.literals.Contains(buffer)) // Если это литерал, которого нет в списке литералов
+                else if (type == 'D' && !Classification.literals.Contains(lexeme)) // Если это литерал, которого нет в списке литералов
                     Classification.literals.Add(lex.Name); // Добавляем в список литералов
 
             }
