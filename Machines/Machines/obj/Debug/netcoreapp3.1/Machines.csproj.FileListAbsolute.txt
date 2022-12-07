@@ -22,8 +22,6 @@ C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-lang
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.dll
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\bin\Debug\netcoreapp3.1\Machines.pdb
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.AssemblyReference.cache
-C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.Form1.resources
-C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.Form2.resources
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.csproj.GenerateResource.cache
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.AssemblyInfoInputs.cache
@@ -32,3 +30,5 @@ C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-lang
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.dll
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.pdb
 C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.genruntimeconfig.cache
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.MainForm.resources
+C:\Users\User\Documents\GitHub\Translator-from-a-subset-of-the-Visual-Basic-language\Machines\Machines\obj\Debug\netcoreapp3.1\Machines.TablesForm.resources

@@ -1,7 +1,7 @@
 ﻿
 namespace Machines
 {
-    partial class Form2
+    partial class TablesForm
     {
         /// <summary>
         /// Required designer variable.
@@ -139,7 +139,7 @@ namespace Machines
             this.label6.TabIndex = 11;
             this.label6.Text = "Таблица стандартных символов";
             // 
-            // Form2
+            // TablesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -158,10 +158,11 @@ namespace Machines
             this.Controls.Add(this.LexemesTreeView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Form2";
+            this.Name = "TablesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Результат анализа";
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TablesForm_FormClosing);
+            this.Load += new System.EventHandler(this.TablesForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

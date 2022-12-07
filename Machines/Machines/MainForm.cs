@@ -6,19 +6,26 @@ using System.IO;
 
 namespace Machines
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e) 
         {
             ResultButton.Enabled = false;
             string path = Path.Combine(Directory.GetCurrentDirectory() + "\\code.txt");
             ReadFromFile(path);
+
         }
+        //private void Form1_Load(object sender, EventArgs e)
+        //{
+        //    ResultButton.Enabled = false;
+        //    string path = Path.Combine(Directory.GetCurrentDirectory() + "\\code.txt");
+        //    ReadFromFile(path);
+        //}
 
        
         /// <summary>
@@ -89,7 +96,6 @@ namespace Machines
                             str = str + CodeTextBox.Lines[i][j];
 
                         
-                        str = str + ' ' + "/-"; // знак /- перенос на новую строку 
                     }
                 }
 
@@ -99,9 +105,12 @@ namespace Machines
             // Удаляем последний /- (его не должно быть)
             str = str.Substring(0, str.Length - 2);
 
+            //check(str);
+
             return str;
         }
 
+       
         
         private void AnalysisButton_Click(object sender, EventArgs e)
         {
@@ -121,7 +130,7 @@ namespace Machines
         {
             ResultButton.Enabled = false;
 
-            Form2 form2 = new Form2();
+            TablesForm form2 = new TablesForm();
             form2.Show(); 
 
         }

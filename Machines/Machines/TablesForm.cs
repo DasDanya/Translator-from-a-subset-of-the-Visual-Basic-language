@@ -4,16 +4,16 @@ using System.Windows.Forms;
 
 namespace Machines
 {
-    public partial class Form2 : Form
+    public partial class TablesForm : Form
     {
         
-        public Form2()
+        public TablesForm()
         {  
             InitializeComponent();
         }
 
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void TablesForm_Load(object sender, EventArgs e) 
         {
 
             ClearTreeViews(); // Очищаем данные со старыми данными
@@ -26,11 +26,26 @@ namespace Machines
 
             OutputTokens(); // Выводим токены
 
-            // Очищаем списки переменных и литералов
-            Classification.variables.Clear();
-            Classification.literals.Clear();
-
         }
+
+        //private void Form2_Load(object sender, EventArgs e)
+        //{
+
+        //    ClearTreeViews(); // Очищаем данные со старыми данными
+
+        //    OutputLexmes(); // Выводим лексемы
+        //    OutputClassifiedLexemes(Classification.KeyWords, 1); // Выводим ключевые слова
+        //    OutputClassifiedLexemes(Classification.separators, 2);  // Выводим разделители 
+        //    OutputClassifiedLexemes(Classification.variables, 3); // Выводим переменные
+        //    OutputClassifiedLexemes(Classification.literals, 4); // Выводим литералы
+
+        //    OutputTokens(); // Выводим токены
+
+        //    // Очищаем списки переменных и литералов
+        //    Classification.variables.Clear();
+        //    Classification.literals.Clear();
+
+        //}
 
         /// <summary>
         /// Вывод лексем построчно
@@ -41,7 +56,6 @@ namespace Machines
             {
                 LexemesTreeView.Nodes.Add(Classification.lexemes[i].Name + " " + "-" + " " + Classification.lexemes[i].Type);
             }
-            Classification.lexemes.Clear();
         }
 
         /// <summary>
@@ -53,7 +67,6 @@ namespace Machines
             {
                 TokensTreeView.Nodes.Add(Classification.tokens[i].NumberTable + " " + ";" + " " + Classification.tokens[i].IndexLexeme);
             }
-            Classification.tokens.Clear();
         }
 
         /// <summary>
@@ -95,6 +108,13 @@ namespace Machines
             TokensTreeView.Nodes.Clear();
         }
 
-        
+        private void TablesForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Очищаем списки
+            Classification.variables.Clear();
+            Classification.literals.Clear();
+            Classification.tokens.Clear();
+            Classification.lexemes.Clear();
+        }
     }
 }
