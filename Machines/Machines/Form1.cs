@@ -88,7 +88,7 @@ namespace Machines
                         else
                             str = str + CodeTextBox.Lines[i][j];
 
-
+                        
                         str = str + ' ' + "/-"; // знак /- перенос на новую строку 
                     }
                 }
@@ -96,6 +96,9 @@ namespace Machines
                 str += ' '; // Разделяем строки richtextbox пробелом
 
             }
+            // Удаляем последний /- (его не должно быть)
+            str = str.Substring(0, str.Length - 2);
+
             return str;
         }
 
@@ -106,9 +109,9 @@ namespace Machines
                 MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                LexicalAnalysis translator = new LexicalAnalysis();
+                LexicalAnalysis lexicalAnalysis = new LexicalAnalysis();
                 string text = "";
-                translator.Analysis(GetDataFromRichTextBox(text), ResultButton); // Производим лексический анализ
+                lexicalAnalysis.Analysis(GetDataFromRichTextBox(text), ResultButton); // Производим лексический анализ
 
                 Classification.tokens = Token.GeneratingListTokens(Classification.lexemes, Classification.KeyWords, Classification.separators, Classification.variables, Classification.literals); // Получаем список токенов
             }
