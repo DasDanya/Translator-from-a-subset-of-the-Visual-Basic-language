@@ -33,6 +33,7 @@ namespace Machines
             this.AnalysisButton = new System.Windows.Forms.Button();
             this.ResultButton = new System.Windows.Forms.Button();
             this.CodeTextBox = new System.Windows.Forms.TextBox();
+            this.clearButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SelectFileButton
@@ -47,7 +48,7 @@ namespace Machines
             // 
             // AnalysisButton
             // 
-            this.AnalysisButton.Location = new System.Drawing.Point(451, 182);
+            this.AnalysisButton.Location = new System.Drawing.Point(451, 114);
             this.AnalysisButton.Name = "AnalysisButton";
             this.AnalysisButton.Size = new System.Drawing.Size(144, 66);
             this.AnalysisButton.TabIndex = 2;
@@ -73,11 +74,22 @@ namespace Machines
             this.CodeTextBox.Size = new System.Drawing.Size(392, 379);
             this.CodeTextBox.TabIndex = 4;
             // 
+            // clearButton
+            // 
+            this.clearButton.Location = new System.Drawing.Point(451, 186);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(144, 66);
+            this.clearButton.TabIndex = 5;
+            this.clearButton.Text = "Очистить ";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 450);
+            this.Controls.Add(this.clearButton);
             this.Controls.Add(this.CodeTextBox);
             this.Controls.Add(this.ResultButton);
             this.Controls.Add(this.AnalysisButton);
@@ -98,6 +110,7 @@ namespace Machines
         private System.Windows.Forms.Button AnalysisButton;
         private System.Windows.Forms.Button ResultButton;
         private System.Windows.Forms.TextBox CodeTextBox;
+        private System.Windows.Forms.Button clearButton;
     }
 }
 

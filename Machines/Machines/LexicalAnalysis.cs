@@ -28,7 +28,7 @@ namespace Machines
         /// <summary>
         /// Выполняет лексический анализ    
         /// </summary>
-        public void Analysis(string text, Button ResultButton)
+        public bool Analysis(string text, Button ResultButton)
         {
 
             bool error = false, correctSymbol = false;
@@ -103,7 +103,14 @@ namespace Machines
                         if (correctSymbol) // Если корректный и собираем разделитель в буфере
                         {
                             if (buffer.Length < 2) // Если менее трех символов 
+                            {
                                 buffer += text[i];
+
+                                if (!Classification.separators.Contains(buffer)) 
+                                {
+                                    error = true;
+                                }
+                            }
                             else // Если разделить из трех символов
                             {
                                 error = true;
@@ -143,8 +150,9 @@ namespace Machines
                         error = true;
                 }
 
-                if (error || !correctSymbol && text[i] != ' ') // Обнаружен некорректный символ или превысили планку длины лексемы
+                if (error || !correctSymbol & text[i] != ' ') // Обнаружен некорректный символ или превысили планку длины лексемы
                 {
+                    
                     // Формируем сообщение об ошибке
                     string errorMessage = string.Format("Был найден некорректный символ {0} в коде", text[i]); 
                     MessageBox.Show(errorMessage, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -152,15 +160,17 @@ namespace Machines
                     ResultButton.Enabled = false;
                     ClearOfBuffer();
                     Classification.lexemes.Clear();
-                    break;
+                    return false;
                 }
             }
             if (!error && correctSymbol) // Ошибок нет 
             {
                 MessageBox.Show("Лексический анализ был успешно произведён!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                ResultButton.Enabled = true;
+                ResultButton.Enabled = true;              
             }
+
+            return true;
         }
 
         /// <summary>

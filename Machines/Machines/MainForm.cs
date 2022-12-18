@@ -95,34 +95,64 @@ namespace Machines
                         else
                             str = str + CodeTextBox.Lines[i][j];
 
+
+                        str = str +  ' ' + "/-"; // знак /- перенос на новую строку 
                         
                     }
+                    
                 }
-
+                //str = str + ' ' + "/-"; // знак /- перенос на новую строку
                 str += ' '; // Разделяем строки richtextbox пробелом
 
             }
             // Удаляем последний /- (его не должно быть)
             str = str.Substring(0, str.Length - 2);
 
+            string result = "";
+            
+            // цикл для того,чтобы между одинаковыми скобками был пробел
+            for (int i = 0; i < str.Length; i++)
+            {
+                if ((str[i] == '(' && str[i + 1] == '(') || (str[i] == ')' && str[i + 1] == ')'))
+                {
+                    result = result + str[i] +  " ";
+                }
+                else
+                    result = result + str[i];
+                
+            }
+
             //check(str);
 
-            return str;
+            return result;
         }
 
        
         
         private void AnalysisButton_Click(object sender, EventArgs e)
         {
-            if (CodeTextBox.Text == "")
-                MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Classification.Clear();
+
+            if (CodeTextBox.Text.Trim() == "")        
+            MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
+
                 LexicalAnalysis lexicalAnalysis = new LexicalAnalysis();
                 string text = "";
-                lexicalAnalysis.Analysis(GetDataFromRichTextBox(text), ResultButton); // Производим лексический анализ
 
-                Classification.tokens = Token.GeneratingListTokens(Classification.lexemes, Classification.KeyWords, Classification.separators, Classification.variables, Classification.literals); // Получаем список токенов
+                // Если лексический анализ успешно произошёл
+                if (lexicalAnalysis.Analysis(GetDataFromRichTextBox(text), ResultButton)) // Производим лексический анализ
+                {
+                    Classification.tokens = Token.GeneratingListTokens(Classification.lexemes, Classification.KeyWords, Classification.separators, Classification.variables, Classification.literals); // Получаем список токенов
+
+                    // Начинаем лексический анализ
+                    SyntacticAnalysis syntacticAnalysis = new SyntacticAnalysis(Classification.tokens);
+                    syntacticAnalysis.StartAnalysis();
+
+                    //MessageBox.Show(text); // убрать (для проверки)
+                }
+                
             }
         }
        
@@ -133,6 +163,11 @@ namespace Machines
             TablesForm form2 = new TablesForm();
             form2.Show(); 
 
+        }
+
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            CodeTextBox.Clear();
         }
     }
 }

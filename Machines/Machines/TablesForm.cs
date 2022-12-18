@@ -111,10 +111,7 @@ namespace Machines
         private void TablesForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Очищаем списки
-            Classification.variables.Clear();
-            Classification.literals.Clear();
-            Classification.tokens.Clear();
-            Classification.lexemes.Clear();
+            Classification.Clear();
         }
     }
 }

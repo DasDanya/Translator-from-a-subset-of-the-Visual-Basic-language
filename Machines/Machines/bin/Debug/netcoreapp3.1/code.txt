@@ -1,1 +1,3 @@
-Integer x = 7 Double y=1 z = x/y
+Sub Main()
+f=smd + 434
+End Sub
