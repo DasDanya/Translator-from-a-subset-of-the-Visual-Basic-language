@@ -10,7 +10,7 @@ namespace Machines
     public static class Classification
     {
 
-        static char[] singleSeparations = { '+', '-', '=', '/', '<', '>', '*', '(', ')' }; // Массив одинарных разделителей
+        static char[] singleSeparations = { '+', '-', '=', '/', '<', '>', '*', '(', ')', ',' }; // Массив одинарных разделителей
         static string[] doubleSeparations = { "<>", "/-", "()"}; // Массив двойных разделителей
 
         public static List<Lexeme> lexemes = new List<Lexeme>(); // Список лексем

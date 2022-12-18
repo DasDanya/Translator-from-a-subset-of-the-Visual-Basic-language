@@ -148,7 +148,7 @@ namespace Machines
             }
             else if (actualLexeme == "Dim")
             {
-                return false;
+                return Description();
             }
             else if (actualLexeme == "If")
             {
@@ -204,6 +204,119 @@ namespace Machines
             //    return true;
 
             return EliminationLeftFactorAssignment();
+
+        }
+
+
+        private bool Description() // описание
+        {
+            if (actualLexeme != "Dim")
+            {
+                GetMessageErrorKeyWords("Dim");
+                return false;
+            }
+            else
+                Next();
+
+
+            if (!ListOfVariables())
+            {
+                return false;
+            }
+            else
+                Next();
+
+            if (!Type())
+            {
+                return false;
+            }
+            else
+                Next();
+
+
+            return EliminationLeftFactorDescription();
+
+        }
+
+
+        private bool ListOfVariables() // список переменных
+        {
+            if (!Classification.isId(actualLexeme))
+            {
+                GetMessageErrorId();
+                return false;
+            }
+            else
+                Next();
+
+
+            return EliminationLeftFactorListOfVariables();
+        }
+
+        private bool EliminationLeftFactorListOfVariables() // устранение левой факторизации список переменных
+        {
+            if (actualLexeme == "As")
+            {
+                return true;
+            }
+            else if (actualLexeme == ",")
+            {
+                return EliminationLeftRecursionListOfVariables();
+            }
+            else
+            {
+                GetMessageErrorEliminationLeftFactorListOfVariables();
+                return false;
+            }
+        }
+
+        private bool EliminationLeftRecursionListOfVariables() // устранение левой рекурсии список переменных
+        {
+            if (actualLexeme != ",")
+            {
+                GetMessageErrorSymbol(",");
+                return false;
+            }
+            else
+                Next();
+
+            if (!Classification.isId(actualLexeme))
+            {
+                GetMessageErrorId();
+                return false;
+            }
+            else
+                Next();
+
+            return EliminationLeftFactorListOfVariables();
+        }
+
+
+        private bool EliminationLeftFactorDescription() // устранение левой факторизации описание 
+        {
+            if (actualLexeme == "/-")
+            {
+                return true;
+            }
+
+            else if (actualLexeme == "=")
+            {
+                Next();
+
+                if (!Operand())
+                    return false;
+                else
+                {
+                    Next();
+                    return EliminationLeftFactorAssignment();
+                }
+                    
+            }
+            else 
+            {
+                GetMessageEliminationLeftFactorDescription();
+                return false;
+            }
 
         }
 
@@ -263,6 +376,17 @@ namespace Machines
 
         }
 
+        private bool Type() // Тип
+        {
+            if (actualLexeme == "Double" || actualLexeme == "Short" || actualLexeme == "Integer")
+                return true;
+            else
+            {
+                GetMessageErrorType();
+                return false;
+            }
+        }
+
         /// <summary>
         /// Метод вывода сообщения о том, что ожидалось ключевое слово
         /// </summary>
@@ -318,7 +442,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorEliminationLeftFactorAssignment()
         {
-            MessageBox.Show($"Ожидался перемнос на новую строку или знак +, -, * или / , а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидался перенос на новую строку или знак +, -, * или / , а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -330,5 +454,29 @@ namespace Machines
             MessageBox.Show($"Ожидался знак +, -, * или / , а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+
+        /// <summary>
+        /// Метод вывода сообщения об ошибке в правиле "Устранение левой факторизации список переменных"
+        /// </summary>
+        private void GetMessageErrorEliminationLeftFactorListOfVariables() 
+        {
+            MessageBox.Show($"Ожидалось ключевое слово As или запятая, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Метод вывода сообщения об ошибке в правиле "Тип"
+        /// </summary>
+        private void GetMessageErrorType() 
+        {
+            MessageBox.Show($"Ожидался тип данных: Double или Short или Integer, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Метод вывода сообщения об ошибке в правиле "Устранение левой факторизации описание"
+        /// </summary>
+        private void GetMessageEliminationLeftFactorDescription() 
+        {
+            MessageBox.Show($"Ожидался переход на новую строку или знак =, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

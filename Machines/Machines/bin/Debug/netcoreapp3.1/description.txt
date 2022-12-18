@@ -1,0 +1,3 @@
+Sub Main()
+Dim as As Integer
+End Sub
