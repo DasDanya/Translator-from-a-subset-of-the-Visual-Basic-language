@@ -158,7 +158,7 @@ namespace Machines
             }
             else if (actualLexeme == "If")
             {
-                return false;
+                return ConditionalOperator();
             }
             else 
             {
@@ -307,6 +307,132 @@ namespace Machines
 
         }
 
+        private bool ConditionalOperator() // Условный оператор
+        {
+            if (actualLexeme != "If")
+            {
+                GetMessageErrorKeyWords("If");
+                return false;
+            }
+            else
+                Next();
+
+            Expr();
+
+            if (actualLexeme != "Then")
+            {
+                GetMessageErrorKeyWords("Then");
+                return false;
+            }
+            else
+                Next();
+
+            if (actualLexeme != "/-")
+            {
+                GetMessageErrorTransferNewLine();
+                return false;
+            }
+            else
+                Next();
+
+            if (!ListOfActions())
+            {
+                return false;
+            }
+            else
+            {
+                if (actualLexeme != "/-") // Если это убрать, то будет ошибка в простом присваивании
+                    Next();
+            }
+
+            if (actualLexeme != "/-")
+            {
+                GetMessageErrorTransferNewLine();
+                return false;
+            }
+            else
+                Next();
+
+            return EliminationLeftFactorConditionalOperator();
+
+
+        }
+
+        private void Expr() // Метод-заглушка сложжного логического выражения 
+        {
+            while (actualLexeme != "Then") 
+            {
+                Next();
+            }
+        }
+
+        private bool EliminationLeftFactorConditionalOperator() // устранение левой факторизации условный оператор
+        {
+            if (actualLexeme == "End")
+            {
+                Next();
+
+                if (actualLexeme != "If")
+                {
+                    GetMessageErrorKeyWords("If");
+                    return false;
+                }
+                else
+                    return true;
+            }
+            else if (actualLexeme == "Else")
+            {
+                Next();
+
+                if (actualLexeme != "/-")
+                {
+                    GetMessageErrorTransferNewLine();
+                    return false;
+                }
+                else
+                    Next();
+
+                if (!ListOfActions())
+                {
+                    return false;
+                }
+                else
+                {
+                    if (actualLexeme != "/-") // Если это убрать, то будет ошибка в простом присваивании
+                        Next();
+                }
+
+                if (actualLexeme != "/-")
+                {
+                    GetMessageErrorTransferNewLine();
+                    return false;
+                }
+                else
+                    Next();
+
+                if (actualLexeme != "End")
+                {
+                    GetMessageErrorKeyWords("End");
+                    return false;
+                }
+                else
+                    Next();
+
+                if (actualLexeme != "If")
+                {
+                    GetMessageErrorKeyWords("If");
+                    return false;
+                }
+                else
+                    return true;
+            }
+            else 
+            {
+                GetMessageErrorEliminationLeftFactorConditionalOperator();
+                return false;
+            }
+
+        }
 
         private bool ListOfVariables() // список переменных
         {
@@ -556,9 +682,20 @@ namespace Machines
             MessageBox.Show("Продолжение синтаксического анализа невозможно", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Метод вывода сообщения об ошибке в правиле "Устранение левой рекурсии действие"
+        /// </summary>
         private void GetMessageEliminationRecursionAction() 
         {
             MessageBox.Show($"Ожидался If или Dim или переменная или End или Else, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Метод вывода сообщение об ошибке в правиле "Устранение левой факторизации условный оператор"
+        /// </summary>
+        private void GetMessageErrorEliminationLeftFactorConditionalOperator() 
+        {
+            MessageBox.Show($"Ожидался End или Else, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
