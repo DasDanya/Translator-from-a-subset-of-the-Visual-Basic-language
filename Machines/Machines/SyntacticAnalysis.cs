@@ -30,6 +30,8 @@ namespace Machines
                 actualLexeme = "Пустота";
         }
 
+        
+
         private void Past() 
         {
             numLexeme--;
@@ -75,7 +77,7 @@ namespace Machines
 
             if (actualLexeme != "/-")
             {
-                GetMessageErrorTransferNewLine();
+                GetMessageErrorTransferNewLine();             
                 return;
             }
             else
@@ -91,7 +93,7 @@ namespace Machines
                     Next();
 
             }
-                
+
 
             if (actualLexeme != "/-")
             {
@@ -119,7 +121,7 @@ namespace Machines
                 if (tokens.Count - numLexeme == 1)
                     MessageBox.Show("Синтаксический анализ успешно произведён!", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else
-                    MessageBox.Show("Продолжение синтаксического анализа невозможно", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    GetMessageErrorEnd();
             }
                 
         }
@@ -129,8 +131,12 @@ namespace Machines
         {
             if (Action())
             {
-                // Здесь должен быть Next
-                return true;
+                //MessageBox.Show($" action: {actualLexeme}");
+
+                if (actualLexeme != "/-")
+                    Next();
+
+                return EliminationOfLeftFactorListOfAction();
             }
             else
                 return false;
@@ -160,6 +166,69 @@ namespace Machines
                 return false;
             }
 
+        }
+
+        private bool EliminationOfLeftFactorListOfAction() // устранение левой факторизации список действий
+        {
+            if (actualLexeme == "/-")
+            {
+                //MessageBox.Show(Classification.GetLexeme(tokens[numLexeme - 1]));
+                if (tokens.Count - numLexeme > 1)
+                {
+                    Next();
+                    //MessageBox.Show($" next lev rek {actualLexeme}");
+                    if (actualLexeme == "End" || actualLexeme == "Else")
+                    {
+                        Past();
+                        //MessageBox.Show($"past {actualLexeme}");
+                        return true;
+                    }
+
+                    else if (actualLexeme == "Dim" || actualLexeme == "If" || Classification.isId(actualLexeme))
+                    {
+                        Past();
+                        //MessageBox.Show(actualLexeme);
+
+                        return EliminationOfLeftRecursionListOfAction();
+                    }
+                    else 
+                    {
+                        GetMessageEliminationRecursionAction();
+                        return false;
+                    }
+                }
+                else
+                {
+                    GetMessageErrorEnd();
+                    return false;
+                }
+            }
+            else
+            {
+                GetMessageErrorTransferNewLine();
+                return false;
+            }
+        }
+
+        private bool EliminationOfLeftRecursionListOfAction() // устранение левой рекурсии список действий
+        {
+            if (actualLexeme != "/-")
+            {
+                GetMessageErrorTransferNewLine();
+                return false;
+            }
+            else
+                Next();
+
+            if (!Action())
+                return false;
+            else
+            {
+                if (actualLexeme != "/-") // Если убрать это условие, то он будет пропускать /- , так как после действия текущая лексема - /-
+                    Next();
+            }
+
+            return EliminationOfLeftFactorListOfAction();
         }
 
         private bool Assignment() // присваивание
@@ -313,7 +382,7 @@ namespace Machines
                     
             }
             else 
-            {
+            {                
                 GetMessageEliminationLeftFactorDescription();
                 return false;
             }
@@ -477,6 +546,19 @@ namespace Machines
         private void GetMessageEliminationLeftFactorDescription() 
         {
             MessageBox.Show($"Ожидался переход на новую строку или знак =, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Метод вывода сообщения о невозможности продолжения выполнения кода
+        /// </summary>
+        private void GetMessageErrorEnd() 
+        {
+            MessageBox.Show("Продолжение синтаксического анализа невозможно", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void GetMessageEliminationRecursionAction() 
+        {
+            MessageBox.Show($"Ожидался If или Dim или переменная или End или Else, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
