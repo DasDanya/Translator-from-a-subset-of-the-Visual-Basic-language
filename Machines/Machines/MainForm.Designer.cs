@@ -52,7 +52,7 @@ namespace Machines
             this.AnalysisButton.Name = "AnalysisButton";
             this.AnalysisButton.Size = new System.Drawing.Size(144, 66);
             this.AnalysisButton.TabIndex = 2;
-            this.AnalysisButton.Text = "Лексический анализ";
+            this.AnalysisButton.Text = "Анализ";
             this.AnalysisButton.UseVisualStyleBackColor = true;
             this.AnalysisButton.Click += new System.EventHandler(this.AnalysisButton_Click);
             // 

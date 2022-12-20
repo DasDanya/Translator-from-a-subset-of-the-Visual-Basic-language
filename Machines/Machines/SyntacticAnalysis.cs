@@ -20,6 +20,9 @@ namespace Machines
             this.tokens = tokens;
         }
 
+        /// <summary>
+        /// Метод, который берет следующую лексему
+        /// </summary>
         private void Next() 
         {
             numLexeme++;
@@ -31,14 +34,19 @@ namespace Machines
         }
 
         
-
+        /// <summary>
+        /// Метод, который берет прошлую лексему
+        /// </summary>
         private void Past() 
         {
             numLexeme--;
             actualLexeme = Classification.GetLexeme(tokens[numLexeme]);
         }
        
-        public void StartAnalysis()  // программа
+        /// <summary>
+        /// Программа
+        /// </summary>
+        public void StartAnalysis()  
         {
             actualLexeme = Classification.GetLexeme(tokens[0]);
 
@@ -126,7 +134,10 @@ namespace Machines
                 
         }
 
-        
+        /// <summary>
+        /// Список действий
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool ListOfActions() // список действий
         {
             if (Action())
@@ -144,7 +155,10 @@ namespace Machines
 
         }
 
-        
+        /// <summary>
+        /// Действие
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool Action() // действие
         {
             if (Classification.isId(actualLexeme))
@@ -168,6 +182,10 @@ namespace Machines
 
         }
 
+        /// <summary>
+        /// Устранение левой факторизации список действий
+        /// </summary>
+        /// <returns></returns>
         private bool EliminationOfLeftFactorListOfAction() // устранение левой факторизации список действий
         {
             if (actualLexeme == "/-")
@@ -193,13 +211,14 @@ namespace Machines
                     }
                     else 
                     {
-                        GetMessageEliminationRecursionAction();
+                        GetMessageEliminationLeftFactorListOfAction();
                         return false;
                     }
                 }
                 else
                 {
-                    GetMessageErrorEnd();
+                    GetMessageEliminationLeftFactorListOfAction();
+                    //GetMessageErrorEnd();
                     return false;
                 }
             }
@@ -210,6 +229,10 @@ namespace Machines
             }
         }
 
+        /// <summary>
+        /// Устранение левой рекурсии список действий
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool EliminationOfLeftRecursionListOfAction() // устранение левой рекурсии список действий
         {
             if (actualLexeme != "/-")
@@ -231,6 +254,10 @@ namespace Machines
             return EliminationOfLeftFactorListOfAction();
         }
 
+        /// <summary>
+        /// Присваивание
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool Assignment() // присваивание
         {
             if (!Classification.isId(actualLexeme))
@@ -276,7 +303,10 @@ namespace Machines
 
         }
 
-
+        /// <summary>
+        /// Описание
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool Description() // описание
         {
             if (actualLexeme != "Dim")
@@ -307,6 +337,10 @@ namespace Machines
 
         }
 
+        /// <summary>
+        /// Условный оператор
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool ConditionalOperator() // Условный оператор
         {
             if (actualLexeme != "If")
@@ -317,7 +351,13 @@ namespace Machines
             else
                 Next();
 
-            Expr();
+            if (actualLexeme == "Then" || actualLexeme == "/-") 
+            {
+                GetMessageErrorWaitingExpr();
+                return false;
+            }
+            else
+                Expr();
 
             if (actualLexeme != "Then")
             {
@@ -358,14 +398,27 @@ namespace Machines
 
         }
 
-        private void Expr() // Метод-заглушка сложжного логического выражения 
+        /// <summary>
+        /// Метод-заглушка для сложного-логического выражения
+        /// </summary>
+        private void Expr() // Метод-заглушка сложного логического выражения 
         {
             while (actualLexeme != "Then") 
             {
-                Next();
+                if (tokens.Count - numLexeme > 1)
+                    Next();
+                else
+                {
+                    //GetMessageErrorEnd();
+                    return;
+                }
             }
         }
 
+        /// <summary>
+        /// Устранение левой факторизации условный оператор
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool EliminationLeftFactorConditionalOperator() // устранение левой факторизации условный оператор
         {
             if (actualLexeme == "End")
@@ -434,6 +487,10 @@ namespace Machines
 
         }
 
+        /// <summary>
+        /// Список переменных
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool ListOfVariables() // список переменных
         {
             if (!Classification.isId(actualLexeme))
@@ -448,6 +505,10 @@ namespace Machines
             return EliminationLeftFactorListOfVariables();
         }
 
+        /// <summary>
+        /// Устранение левой факторизации список переменных
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool EliminationLeftFactorListOfVariables() // устранение левой факторизации список переменных
         {
             if (actualLexeme == "As")
@@ -465,6 +526,10 @@ namespace Machines
             }
         }
 
+        /// <summary>
+        /// Устранение левой рекурсии список переменных
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool EliminationLeftRecursionListOfVariables() // устранение левой рекурсии список переменных
         {
             if (actualLexeme != ",")
@@ -486,7 +551,10 @@ namespace Machines
             return EliminationLeftFactorListOfVariables();
         }
 
-
+        /// <summary>
+        /// Устранение левой факторизации описание
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool EliminationLeftFactorDescription() // устранение левой факторизации описание 
         {
             if (actualLexeme == "/-")
@@ -515,6 +583,10 @@ namespace Machines
 
         }
 
+        /// <summary>
+        /// Устранение левой факторизации присваивание
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool EliminationLeftFactorAssignment() // устранение левой факторизации присваивание
         {
             if (actualLexeme == "/-")
@@ -542,6 +614,10 @@ namespace Machines
         
         }
 
+        /// <summary>
+        /// Знак
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool Sign() // Знак
         {
             if (actualLexeme == "+" || actualLexeme == "-" || actualLexeme == "*" || actualLexeme == "/")
@@ -556,8 +632,11 @@ namespace Machines
 
         }
 
-
-        private bool Operand()  // Оператор
+        /// <summary>
+        /// Операнд
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
+        private bool Operand()  // Операнд
         {
             if (!Classification.isLiteral(actualLexeme) & !Classification.isId(actualLexeme))
             {
@@ -571,6 +650,10 @@ namespace Machines
 
         }
 
+        /// <summary>
+        /// Тип
+        /// </summary>
+        /// <returns>Успешен ли разбор</returns>
         private bool Type() // Тип
         {
             if (actualLexeme == "Double" || actualLexeme == "Short" || actualLexeme == "Integer")
@@ -683,9 +766,9 @@ namespace Machines
         }
 
         /// <summary>
-        /// Метод вывода сообщения об ошибке в правиле "Устранение левой рекурсии действие"
+        /// Метод вывода сообщения об ошибке в правиле "Устранение левой факторизации список действий"
         /// </summary>
-        private void GetMessageEliminationRecursionAction() 
+        private void GetMessageEliminationLeftFactorListOfAction() 
         {
             MessageBox.Show($"Ожидался If или Dim или переменная или End или Else, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -696,6 +779,14 @@ namespace Machines
         private void GetMessageErrorEliminationLeftFactorConditionalOperator() 
         {
             MessageBox.Show($"Ожидался End или Else, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Метод вывода сообщения о том, что ожидалось условие
+        /// </summary>
+        private void GetMessageErrorWaitingExpr() 
+        {
+            MessageBox.Show($"Ожидалось условие, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -133,7 +133,7 @@ namespace Machines
         {
             Classification.Clear();
 
-            if (CodeTextBox.Text.Trim() == "")        
+            if (CodeTextBox.Text.Trim() == "") // Здесь был CodeTextBox.Text.Trim()     
             MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
@@ -149,6 +149,8 @@ namespace Machines
                     // Начинаем лексический анализ
                     SyntacticAnalysis syntacticAnalysis = new SyntacticAnalysis(Classification.tokens);
                     syntacticAnalysis.StartAnalysis();
+
+                    //CodeTextBox.Text.Trim();
 
                     //MessageBox.Show(text); // убрать (для проверки)
                 }
