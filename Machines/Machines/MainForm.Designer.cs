@@ -34,11 +34,12 @@ namespace Machines
             this.ResultButton = new System.Windows.Forms.Button();
             this.CodeTextBox = new System.Windows.Forms.TextBox();
             this.clearButton = new System.Windows.Forms.Button();
+            this.logOperationRichTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // SelectFileButton
             // 
-            this.SelectFileButton.Location = new System.Drawing.Point(451, 42);
+            this.SelectFileButton.Location = new System.Drawing.Point(733, 42);
             this.SelectFileButton.Name = "SelectFileButton";
             this.SelectFileButton.Size = new System.Drawing.Size(144, 66);
             this.SelectFileButton.TabIndex = 1;
@@ -48,7 +49,7 @@ namespace Machines
             // 
             // AnalysisButton
             // 
-            this.AnalysisButton.Location = new System.Drawing.Point(451, 114);
+            this.AnalysisButton.Location = new System.Drawing.Point(733, 184);
             this.AnalysisButton.Name = "AnalysisButton";
             this.AnalysisButton.Size = new System.Drawing.Size(144, 66);
             this.AnalysisButton.TabIndex = 2;
@@ -58,7 +59,7 @@ namespace Machines
             // 
             // ResultButton
             // 
-            this.ResultButton.Location = new System.Drawing.Point(451, 355);
+            this.ResultButton.Location = new System.Drawing.Point(733, 520);
             this.ResultButton.Name = "ResultButton";
             this.ResultButton.Size = new System.Drawing.Size(144, 66);
             this.ResultButton.TabIndex = 3;
@@ -71,12 +72,12 @@ namespace Machines
             this.CodeTextBox.Location = new System.Drawing.Point(23, 42);
             this.CodeTextBox.Multiline = true;
             this.CodeTextBox.Name = "CodeTextBox";
-            this.CodeTextBox.Size = new System.Drawing.Size(392, 379);
+            this.CodeTextBox.Size = new System.Drawing.Size(657, 379);
             this.CodeTextBox.TabIndex = 4;
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(451, 186);
+            this.clearButton.Location = new System.Drawing.Point(733, 355);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(144, 66);
             this.clearButton.TabIndex = 5;
@@ -84,11 +85,20 @@ namespace Machines
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
+            // logOperationRichTextBox
+            // 
+            this.logOperationRichTextBox.Location = new System.Drawing.Point(23, 447);
+            this.logOperationRichTextBox.Name = "logOperationRichTextBox";
+            this.logOperationRichTextBox.Size = new System.Drawing.Size(657, 149);
+            this.logOperationRichTextBox.TabIndex = 6;
+            this.logOperationRichTextBox.Text = "";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 460);
+            this.ClientSize = new System.Drawing.Size(908, 608);
+            this.Controls.Add(this.logOperationRichTextBox);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.CodeTextBox);
             this.Controls.Add(this.ResultButton);
@@ -111,6 +121,7 @@ namespace Machines
         private System.Windows.Forms.Button ResultButton;
         private System.Windows.Forms.TextBox CodeTextBox;
         private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.RichTextBox logOperationRichTextBox;
     }
 }
 

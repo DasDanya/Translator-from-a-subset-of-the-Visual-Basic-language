@@ -132,6 +132,7 @@ namespace Machines
         private void AnalysisButton_Click(object sender, EventArgs e)
         {
             Classification.Clear();
+            logOperationRichTextBox.Clear();
 
             if (CodeTextBox.Text.Trim() == "") // Здесь был CodeTextBox.Text.Trim()     
             MessageBox.Show("Пустой текстовый блок!", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -147,7 +148,7 @@ namespace Machines
                     Classification.tokens = Token.GeneratingListTokens(Classification.lexemes, Classification.KeyWords, Classification.separators, Classification.variables, Classification.literals); // Получаем список токенов
 
                     // Начинаем лексический анализ
-                    SyntacticAnalysis syntacticAnalysis = new SyntacticAnalysis(Classification.tokens);
+                    SyntacticAnalysis syntacticAnalysis = new SyntacticAnalysis(Classification.tokens, logOperationRichTextBox);
                     syntacticAnalysis.StartAnalysis();
 
                     //CodeTextBox.Text.Trim();

@@ -11,13 +11,19 @@ namespace Machines
     /// </summary>
      public class SyntacticAnalysis
      {
-        int numLexeme = 0;
-        string actualLexeme = "";
-        List<Token> tokens = new List<Token>();
+        int numLexeme = 0; // Номер лексемы
+        int numLogicOperation = 0; // номер логической операции
+        string actualLexeme = ""; // текущая лексема
+        List<Token> tokens = new List<Token>(); // список токенов
+        Stack<string> E = new Stack<string>(); // операнд
+        Stack<string> T = new Stack<string>(); // операции
+        List<string> matrix = new List<string>(); // матрица сложных логических операций
+        RichTextBox textBox = null;
 
-        public SyntacticAnalysis(List<Token> tokens)
+        public SyntacticAnalysis(List<Token> tokens, RichTextBox richTextBox)
         {
             this.tokens = tokens;
+            textBox = richTextBox;
         }
 
         /// <summary>
@@ -351,13 +357,29 @@ namespace Machines
             else
                 Next();
 
-            if (actualLexeme == "Then" || actualLexeme == "/-") 
+            if (actualLexeme == "Then" || actualLexeme == "/-")
             {
                 GetMessageErrorWaitingExpr();
                 return false;
             }
             else
-                Expr();
+            {
+                if (Expr())
+                {
+                    textBox.Text += $"Логическое выражение №{++numLogicOperation}\n";
+
+                    foreach (var item in matrix)
+                    {
+                        textBox.Text += item + "\n";    
+                    }
+                }
+                else 
+                {
+                    return false;
+                }
+
+                matrix.Clear();
+            }
 
             if (actualLexeme != "Then")
             {
@@ -398,21 +420,332 @@ namespace Machines
 
         }
 
-        /// <summary>
-        /// Метод-заглушка для сложного-логического выражения
-        /// </summary>
-        private void Expr() // Метод-заглушка сложного логического выражения 
+
+        //private bool Expr() // Метод-заглушка сложного логического выражения 
+        //{
+
+        //    //if (Classification.isLiteral(actualLexeme) || Classification.isId(actualLexeme)) 
+        //    //{ 
+
+        //    //}
+        //    bool success = true;
+
+        //    while (actualLexeme != "Then")
+        //    {
+        //        if (tokens.Count - numLexeme > 1)
+        //        {
+        //            if (Classification.isId(actualLexeme) || Classification.isLiteral(actualLexeme)) // Если текущая лексема - операнд
+        //            {
+        //                E.Push(actualLexeme);
+        //                Next();
+        //            }
+        //            else if (actualLexeme == "(" || actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>" || actualLexeme == "Or" || actualLexeme == "Xor" || actualLexeme == "And" || actualLexeme == ")")
+        //            {
+
+        //                if (actualLexeme == "(")
+        //                {
+        //                    D1();
+        //                }
+        //                else if (actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>")
+        //                {
+        //                    if (T.Count == 0 || T.Peek() == "(")
+        //                    {
+        //                        D1();
+        //                    }
+        //                    else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>")
+        //                    {
+        //                        D2();
+        //                    }
+        //                    else if (T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+        //                    {
+        //                        D4();
+        //                    }
+        //                }
+        //                else if (actualLexeme == "Or" || actualLexeme == "Xor")
+        //                {
+        //                    if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>")
+        //                    {
+        //                        D1();
+        //                    }
+        //                    else if (T.Peek() == "Xor" || T.Peek() == "Or")
+        //                    {
+        //                        D2();
+        //                    }
+        //                    else if (T.Peek() == "And")
+        //                    {
+        //                        D4();
+        //                    }
+        //                }
+        //                else if (actualLexeme == "And")
+        //                {
+        //                    if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor")
+        //                    {
+        //                        D1();
+        //                    }
+        //                    else if (T.Peek() == "And")
+        //                    {
+        //                        D2();
+        //                    }
+        //                }
+        //                else if (actualLexeme == ")")
+        //                {
+        //                    if (T.Count == 0)
+        //                    {
+        //                        // Написать ошибку
+        //                        MessageBox.Show($"Условие не может начинаться с {actualLexeme}");
+        //                        success = false; // был return false;
+        //                        break;
+        //                    }
+        //                    else if (T.Peek() == "(")
+        //                    {
+        //                        D3();
+        //                    }
+        //                    else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+        //                    {
+        //                        D4();
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                GetMessageErrorLogicalExpression();
+        //                success = false;
+        //                break;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            //GetMessageErrorEnd();
+        //            success = false;
+        //            break;
+        //        }
+        //    }
+
+        //    if (actualLexeme == "Then" & success)
+        //    {
+        //        if (T.Count == 0)
+        //        {
+        //            return true;
+        //        }
+        //        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+        //        {
+        //            D4();
+
+
+        //            //if (T.Count != 0) // Недавно добавил чек
+        //            //{
+        //            //    MessageBox.Show($"Error symbol {T.Peek()}\nCount:{T.Count}");
+
+        //            //}
+        //        }
+        //        else if (T.Peek() == "(")
+        //        {
+        //            // Сообщение об ошибке
+        //            MessageBox.Show($"Лишняя лексема: {T.Peek()}");
+        //            return false;
+        //        }
+
+        //    }
+        //    else
+        //        return false;
+
+        //    return true;
+        //}
+
+        private bool Expr() // Метод-заглушка сложного логического выражения 
         {
-            while (actualLexeme != "Then") 
+
+            //if (Classification.isLiteral(actualLexeme) || Classification.isId(actualLexeme)) 
+            //{ 
+
+            //}
+            bool success = true;
+
+            
+
+            if (tokens.Count - numLexeme > 1)
             {
-                if (tokens.Count - numLexeme > 1)
+                if (Classification.isId(actualLexeme) || Classification.isLiteral(actualLexeme)) // Если текущая лексема - операнд
+                {
+                    E.Push(actualLexeme);
                     Next();
+                    Expr();
+                }
+                else if (actualLexeme == "(" || actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>" || actualLexeme == "Or" || actualLexeme == "Xor" || actualLexeme == "And" || actualLexeme == ")" || actualLexeme == "Then")
+                {
+
+                    if (actualLexeme == "(")
+                    {
+                        D1();
+                        Expr();
+                    }
+                    else if (actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>")
+                    {
+                        if (T.Count == 0 || T.Peek() == "(")
+                        {
+                            D1();
+                            Expr();
+                        }
+                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>")
+                        {
+                            D2();
+                            Expr();
+                        }
+                        else if (T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+                        {
+                            D4();
+                            Expr();
+                        }
+                    }
+                    else if (actualLexeme == "Or" || actualLexeme == "Xor")
+                    {
+                        if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>")
+                        {
+                            D1();
+                            Expr();
+                        }
+                        else if (T.Peek() == "Xor" || T.Peek() == "Or")
+                        {
+                            D2();
+                            Expr();
+                        }
+                        else if (T.Peek() == "And")
+                        {
+                            D4();
+                            Expr();
+                        }
+                    }
+                    else if (actualLexeme == "And")
+                    {
+                        if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor")
+                        {
+                            D1();
+                            Expr();
+                        }
+                        else if (T.Peek() == "And")
+                        {
+                            D2();
+                            Expr();
+                        }
+                    }
+                    else if (actualLexeme == ")")
+                    {
+                        if (T.Count == 0)
+                        {
+                            // Написать ошибку
+                            MessageBox.Show($"Условие не может начинаться с {actualLexeme}");
+                            success = false; // был return false;
+                            return false;
+                        }
+                        else if (T.Peek() == "(")
+                        {
+                            D3();
+                            Expr();
+                        }
+                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+                        {
+                            D4();
+                            Expr();
+                        }
+                    }
+                    else if (actualLexeme == "Then")
+                    {
+                        if (T.Count == 0)
+                        {
+                            return true;
+                        }
+                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+                        {
+                            D4();
+                            Expr();
+
+                            if (T.Count != 0) // Недавно добавил чек
+                            {
+                                MessageBox.Show($"Error symbol {T.Peek()}\nCount:{T.Count}");
+                                return false;
+                            }
+                        }
+                        else if (T.Peek() == "(")
+                        {
+                            // Сообщение об ошибке
+                            MessageBox.Show($"Лишняя лексема: {T.Peek()}");
+                            return false;
+                        }
+                    }
+                }
                 else
                 {
-                    //GetMessageErrorEnd();
-                    return;
+                    GetMessageErrorLogicalExpression();
+                    return false;
                 }
             }
+            else
+            {
+                //GetMessageErrorEnd();
+                success = false;
+                return false;
+            }
+
+
+            //if (actualLexeme == "Then")
+            //{
+            //    if (T.Count == 0)
+            //    {
+            //        return true;
+            //    }
+            //    else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+            //    {
+            //        D4();
+
+
+            //        if (T.Count != 0) // Недавно добавил чек
+            //        {
+            //            MessageBox.Show($"Error symbol {T.Peek()}\nCount:{T.Count}");
+
+            //        }
+            //    }
+            //    else if (T.Peek() == "(")
+            //    {
+            //        // Сообщение об ошибке
+            //        MessageBox.Show($"Лишняя лексема: {T.Peek()}");
+            //        return false;
+            //    }
+
+            //}
+            //else
+            //    return false;
+
+            return true;
+        }
+
+        private void D1() // действие D1
+        {
+            T.Push(actualLexeme);
+            Next();
+        }
+
+
+        private void D2() 
+        {
+            D4();
+
+            T.Push(actualLexeme);
+            Next();
+        }
+
+        private void D3() 
+        {
+            T.Pop();
+            Next();
+        }
+
+        private void D4() 
+        {
+            string bufferMatrix = $"M{matrix.Count + 1}";
+
+            matrix.Add($"{bufferMatrix}: {T.Pop()} {E.Pop()} {E.Pop()}");
+            E.Push(bufferMatrix);
+            //MessageBox.Show($"T peek: {T.Peek()}");
         }
 
         /// <summary>
@@ -787,6 +1120,15 @@ namespace Machines
         private void GetMessageErrorWaitingExpr() 
         {
             MessageBox.Show($"Ожидалось условие, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+
+        /// <summary>
+        /// Метод вывода сообщения о том, что введен некорректный символ для разбора сложного логического выражения
+        /// </summary>
+        private void GetMessageErrorLogicalExpression() 
+        {
+            MessageBox.Show($"Ожидалась переменная или литерал, знак: (, <, >, =, ) или ключевое слово: OR, XOR, AND, а встретилось {actualLexeme}", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

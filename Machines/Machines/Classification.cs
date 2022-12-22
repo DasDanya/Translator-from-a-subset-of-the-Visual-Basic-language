@@ -18,7 +18,7 @@ namespace Machines
         public static List<string> literals = new List<string>(); // Список литералов
         public static List<Token> tokens = new List<Token>(); // Список токенов
 
-        static List<string> keyWords = new List<string> { "Integer", "Short", "Double", "Dim", "As", "If", "Then", "Else", "End", "Sub", "Main",  "Not", "And", "Or", "Xor" }; // список ключевый слов
+        static List<string> keyWords = new List<string> { "Integer", "Short", "Double", "Dim", "As", "If", "Then", "Else", "End", "Sub", "Main", "And", "Or", "Xor" }; // список ключевый слов
         public static List<string> separators = GetListSeparators(); // Список переменных
 
         // Поля только для чтения
