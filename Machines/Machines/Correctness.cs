@@ -17,7 +17,7 @@ namespace Machines
         public static bool IsErrorInLengthOfString(string str)
         {
 
-            if (str.Length < 32)
+            if (str.Length <= 8)
                 return false;
             else
                 return true;
@@ -31,7 +31,7 @@ namespace Machines
         /// <returns>Превышено ли значение числа</returns>
         public static bool IsErrorInValueOfNumber(string str)
         {
-            if (int.Parse(str) < 2147483647)
+            if (int.Parse(str) <= 99999999)
                 return false;
             else
                 return true;
