@@ -425,7 +425,7 @@ namespace Machines
         }
 
 
-        private void Expr() // Метод-заглушка сложного логического выражения 
+        private void Expr() // Метод проверки сложного логического выражения 
         {
 
             if (tokens.Count - numLexeme > 1)
@@ -436,7 +436,7 @@ namespace Machines
                     Next();
                     Expr();
                 }
-                else if (actualLexeme == "(" || actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>" || actualLexeme == "Or" || actualLexeme == "Xor" || actualLexeme == "And" || actualLexeme == ")" || actualLexeme == "Then")
+                else if (actualLexeme == "(" || actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>" || actualLexeme == "Or" || actualLexeme == "Xor" || actualLexeme == "And" || actualLexeme == ")" || actualLexeme == "Then" || actualLexeme == "<=" || actualLexeme == ">=")
                 {
 
                     if (actualLexeme == "(")
@@ -444,14 +444,14 @@ namespace Machines
                         D1();
                         Expr();
                     }
-                    else if (actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>")
+                    else if (actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>" || actualLexeme == "<=" || actualLexeme == ">=")
                     {
                         if (T.Count == 0 || T.Peek() == "(")
                         {
                             D1();
                             Expr();
                         }
-                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>")
+                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "<=" || T.Peek() == ">=")
                         {
                             if (D2())
                                 Expr();
@@ -469,7 +469,7 @@ namespace Machines
                     }
                     else if (actualLexeme == "Or" || actualLexeme == "Xor")
                     {
-                        if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>")
+                        if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "<=" || T.Peek() == ">=")
                         {
                             D1();
                             Expr();
@@ -491,7 +491,7 @@ namespace Machines
                     }
                     else if (actualLexeme == "And")
                     {
-                        if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor")
+                        if (T.Count == 0 || T.Peek() == "(" || T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "<=" || T.Peek() == ">=")
                         {
                             D1();
                             Expr();
@@ -517,7 +517,7 @@ namespace Machines
                             D3();
                             Expr();
                         }
-                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And" || T.Peek() == "<=" || T.Peek() == ">=")
                         {
                             if (D4())
                                 Expr();
@@ -550,7 +550,7 @@ namespace Machines
                             //MessageBox.Show($"T count: {T.Count}");
                             return;
                         }
-                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And")
+                        else if (T.Peek() == "<" || T.Peek() == ">" || T.Peek() == "=" || T.Peek() == "<>" || T.Peek() == "Or" || T.Peek() == "Xor" || T.Peek() == "And" || T.Peek() == "<=" || T.Peek() == ">=")
                         {
                             if (D4())
                                 Expr();

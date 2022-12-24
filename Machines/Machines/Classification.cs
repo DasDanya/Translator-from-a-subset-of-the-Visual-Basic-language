@@ -11,7 +11,7 @@ namespace Machines
     {
 
         static char[] singleSeparations = { '+', '-', '=', '/', '<', '>', '*', '(', ')', ',' }; // Массив одинарных разделителей
-        static string[] doubleSeparations = { "<>", "/-", "(), >=, <="}; // Массив двойных разделителей
+        static string[] doubleSeparations = { ">=", "<=", "<>", "/-", "()"}; // Массив двойных разделителей
 
         public static List<Lexeme> lexemes = new List<Lexeme>(); // Список лексем
         public static List<string> variables = new List<string>(); // Список переменных
