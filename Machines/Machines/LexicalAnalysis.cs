@@ -13,6 +13,7 @@ namespace Machines
     {
         string buffer = ""; // Строка для лексического анализа
         Status status = Status.None; // Статус состояния
+        bool errorInLength = false; // ошибка превышения длины лексемы
 
         /// <summary>
         /// Статусы для лексического анализа
@@ -152,16 +153,23 @@ namespace Machines
 
                 if (error || !correctSymbol & text[i] != ' ') // Обнаружен некорректный символ или превысили планку длины лексемы
                 {
-                    
+
                     // Формируем сообщение об ошибке
-                    string errorMessage = string.Format("Был найден некорректный символ {0} в коде", text[i]); 
-                    MessageBox.Show(errorMessage, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string errorMessage = string.Format("Был найден некорректный символ {0} в коде", text[i]);
+
+                    if (!errorInLength)
+                    {
+                        MessageBox.Show(errorMessage, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
                     ResultButton.Enabled = false;
                     ClearOfBuffer();
                     Classification.lexemes.Clear();
+                    errorInLength = false;
                     return false;
                 }
+
+
             }
             if (!error && correctSymbol) // Ошибок нет 
             {
@@ -181,24 +189,38 @@ namespace Machines
         /// <returns>Есть ли ошибка в добавлении лексемы в список лексем </returns>
         private bool SuccessfulLexemeAddition(string lexeme, char type)
         {
+            
             bool error = false;
-
-            if (type == 'I') // Если id
-                error = Correctness.IsErrorInLengthOfString(lexeme);
-            else if (type == 'D') // Если число
-                error = Correctness.IsErrorInValueOfNumber(lexeme);
-
-            if (!error) // Если нет проблем для добавления лексемы
+            try
             {
-                Lexeme lex = new Lexeme(lexeme, type);
-                Classification.lexemes.Add(lex); // Добавляем лексему в список
+                if (type == 'I') // Если id
+                    error = Correctness.IsErrorInLengthOfString(lexeme);
+                else if (type == 'D') // Если число
+                    error = Correctness.IsErrorInValueOfNumber(lexeme);
 
-                if (type == 'I' && !Classification.KeyWords.Contains(lexeme) && !Classification.variables.Contains(lexeme)) // Если это переменная, которой нет в списке переменных
-                    Classification.variables.Add(lex.Name); // Добавляем в список переменных
+                if (!error) // Если нет проблем для добавления лексемы
+                {
+                    Lexeme lex = new Lexeme(lexeme, type);
+                    Classification.lexemes.Add(lex); // Добавляем лексему в список
 
-                else if (type == 'D' && !Classification.literals.Contains(lexeme)) // Если это литерал, которого нет в списке литералов
-                    Classification.literals.Add(lex.Name); // Добавляем в список литералов
+                    if (type == 'I' && !Classification.KeyWords.Contains(lexeme) && !Classification.variables.Contains(lexeme)) // Если это переменная, которой нет в списке переменных
+                        Classification.variables.Add(lex.Name); // Добавляем в список переменных
 
+                    else if (type == 'D' && !Classification.literals.Contains(lexeme)) // Если это литерал, которого нет в списке литералов
+                        Classification.literals.Add(lex.Name); // Добавляем в список литералов
+
+                }
+                else 
+                {
+                    errorInLength = true;
+                    //MessageBox.Show($"Превышена длина у лексемы: {lexeme}", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch(Exception ex) 
+            {
+                errorInLength = true;
+                MessageBox.Show(ex.Message, "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                error = true;
             }
 
             return error;
@@ -211,7 +233,6 @@ namespace Machines
         {
             buffer = "";
             status = Status.None;
-
         }
     }
 }

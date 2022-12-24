@@ -39,9 +39,9 @@ namespace Machines
             // 
             // SelectFileButton
             // 
-            this.SelectFileButton.Location = new System.Drawing.Point(733, 42);
+            this.SelectFileButton.Location = new System.Drawing.Point(698, 42);
             this.SelectFileButton.Name = "SelectFileButton";
-            this.SelectFileButton.Size = new System.Drawing.Size(144, 66);
+            this.SelectFileButton.Size = new System.Drawing.Size(261, 66);
             this.SelectFileButton.TabIndex = 1;
             this.SelectFileButton.Text = "Выбрать файл";
             this.SelectFileButton.UseVisualStyleBackColor = true;
@@ -49,9 +49,9 @@ namespace Machines
             // 
             // AnalysisButton
             // 
-            this.AnalysisButton.Location = new System.Drawing.Point(733, 184);
+            this.AnalysisButton.Location = new System.Drawing.Point(698, 193);
             this.AnalysisButton.Name = "AnalysisButton";
-            this.AnalysisButton.Size = new System.Drawing.Size(144, 66);
+            this.AnalysisButton.Size = new System.Drawing.Size(261, 66);
             this.AnalysisButton.TabIndex = 2;
             this.AnalysisButton.Text = "Анализ";
             this.AnalysisButton.UseVisualStyleBackColor = true;
@@ -59,11 +59,11 @@ namespace Machines
             // 
             // ResultButton
             // 
-            this.ResultButton.Location = new System.Drawing.Point(733, 520);
+            this.ResultButton.Location = new System.Drawing.Point(698, 355);
             this.ResultButton.Name = "ResultButton";
-            this.ResultButton.Size = new System.Drawing.Size(144, 66);
+            this.ResultButton.Size = new System.Drawing.Size(261, 66);
             this.ResultButton.TabIndex = 3;
-            this.ResultButton.Text = "Результат анализа";
+            this.ResultButton.Text = "Результат лексического анализа";
             this.ResultButton.UseVisualStyleBackColor = true;
             this.ResultButton.Click += new System.EventHandler(this.ResultButton_Click);
             // 
@@ -77,9 +77,9 @@ namespace Machines
             // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(733, 355);
+            this.clearButton.Location = new System.Drawing.Point(698, 530);
             this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(144, 66);
+            this.clearButton.Size = new System.Drawing.Size(261, 66);
             this.clearButton.TabIndex = 5;
             this.clearButton.Text = "Очистить ";
             this.clearButton.UseVisualStyleBackColor = true;
@@ -89,6 +89,7 @@ namespace Machines
             // 
             this.logOperationRichTextBox.Location = new System.Drawing.Point(23, 447);
             this.logOperationRichTextBox.Name = "logOperationRichTextBox";
+            this.logOperationRichTextBox.ReadOnly = true;
             this.logOperationRichTextBox.Size = new System.Drawing.Size(657, 149);
             this.logOperationRichTextBox.TabIndex = 6;
             this.logOperationRichTextBox.Text = "";
@@ -97,7 +98,7 @@ namespace Machines
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(908, 608);
+            this.ClientSize = new System.Drawing.Size(984, 608);
             this.Controls.Add(this.logOperationRichTextBox);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.CodeTextBox);
@@ -108,7 +109,7 @@ namespace Machines
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Главное меню";
+            this.Text = "Транслятор с подмножества языка VB ";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

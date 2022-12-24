@@ -160,7 +160,7 @@ namespace Machines
             this.MaximizeBox = false;
             this.Name = "TablesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Результат анализа";
+            this.Text = "Результат лексического анализа";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TablesForm_FormClosing);
             this.Load += new System.EventHandler(this.TablesForm_Load);
             this.ResumeLayout(false);

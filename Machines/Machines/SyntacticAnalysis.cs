@@ -542,7 +542,7 @@ namespace Machines
                             {
                                 GetMessageErrorWaitingOperationAndOperand();
                             }
-                            else 
+                            else
                             {
                                 check = 1;
                             }
@@ -624,19 +624,19 @@ namespace Machines
                 string firstOperation = E.Pop();
                 string secondOperation = E.Pop();
 
-                if (CorrectAndOrXor(operand, firstOperation, secondOperation))
-                {
+                //if (CorrectAndOrXor(operand, firstOperation, secondOperation))
+                //{
                     string bufferMatrix = $"Разбор{matrix.Count + 1}";
 
                     matrix.Add($"{bufferMatrix}: {operand} {secondOperation} {firstOperation}");
                     E.Push(bufferMatrix);
                     return true;
-                }
-                else 
-                {
-                    GetMessageErrorWaitingOperationAndOperand();
-                    return false;
-                }
+                //}
+                //else 
+                //{
+                //    GetMessageErrorWaitingOperationAndOperand();
+                //    return false;
+                //}
 
                 //string bufferMatrix = $"Разбор{matrix.Count + 1}";
 

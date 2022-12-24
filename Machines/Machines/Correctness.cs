@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Machines
 {
@@ -20,7 +21,10 @@ namespace Machines
             if (str.Length <= 8)
                 return false;
             else
+            {
+                MessageBox.Show($"Превышена максимальная длина у идентификатора {str}. Максимальная длина - 8 символов", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);                
                 return true;
+            }
 
         }
 
@@ -31,10 +35,17 @@ namespace Machines
         /// <returns>Превышено ли значение числа</returns>
         public static bool IsErrorInValueOfNumber(string str)
         {
-            if (int.Parse(str) <= 99999999)
-                return false;
-            else
-                return true;
+            try
+            {
+                if (int.Parse(str) <= int.MaxValue)
+                    return false;
+                else
+                    return true;
+            }
+            catch 
+            {
+                throw new Exception($"Число превысело максимальное значение: {int.MaxValue}");
+            }
 
         }
 
