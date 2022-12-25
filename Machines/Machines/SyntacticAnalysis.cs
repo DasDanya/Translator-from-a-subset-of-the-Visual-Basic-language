@@ -509,7 +509,7 @@ namespace Machines
                         if (T.Count == 0)
                         {
                             // Написать ошибку
-                            MessageBox.Show($"Несбалансированная {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"Несбалансированная {actualLexeme}", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                         else if (T.Peek() == "(")
@@ -566,7 +566,7 @@ namespace Machines
                         else if (T.Peek() == "(")
                         {
                             // Сообщение об ошибке
-                            MessageBox.Show($"Несбалансированная {T.Peek()}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"Несбалансированная {T.Peek()}", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                     }
@@ -646,7 +646,7 @@ namespace Machines
             }
             else 
             {
-                MessageBox.Show("Не хватает операнда для проверки условия", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Не хватает операнда для проверки условия", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             
             }
@@ -981,7 +981,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorAction() 
         {
-            MessageBox.Show($"Ожидались If или Dim или переменная, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидались If или Dim или переменная, а встретилось {actualLexeme}", "Действие", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1005,7 +1005,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorEliminationLeftFactorAssignment()
         {
-            MessageBox.Show($"Ожидался перенос на новую строку или знак +, -, * или / , а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидался перенос на новую строку или знак +, -, * или / , а встретилось {actualLexeme}", "Устранение левой факторизации присваивание", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -1014,7 +1014,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorSign()
         {
-            MessageBox.Show($"Ожидался знак +, -, * или / , а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидался знак +, -, * или / , а встретилось {actualLexeme}", "Знак", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
 
@@ -1023,7 +1023,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorEliminationLeftFactorListOfVariables() 
         {
-            MessageBox.Show($"Ожидалось ключевое слово As или запятая, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидалось ключевое слово As или запятая, а встретилось {actualLexeme}", "Устранение левой факторизации список переменных", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1031,7 +1031,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorType() 
         {
-            MessageBox.Show($"Ожидался тип данных: Double или Short или Integer, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидался тип данных: Double или Short или Integer, а встретилось {actualLexeme}", "Тип", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1039,7 +1039,7 @@ namespace Machines
         /// </summary>
         private void GetMessageEliminationLeftFactorDescription() 
         {
-            MessageBox.Show($"Ожидался переход на новую строку или знак =, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидался переход на новую строку или знак =, а встретилось {actualLexeme}", "Устранение левой факторизации описание", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1055,7 +1055,7 @@ namespace Machines
         /// </summary>
         private void GetMessageEliminationLeftFactorListOfAction() 
         {
-            MessageBox.Show($"Ожидался If или Dim или переменная или End или Else, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидался If или Dim или переменная или End или Else, а встретилось {actualLexeme}", "Устранение левой факторизации список действий", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1063,7 +1063,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorEliminationLeftFactorConditionalOperator() 
         {
-            MessageBox.Show($"Ожидался End или Else, а встретилось {actualLexeme}", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Ожидался End или Else, а встретилось {actualLexeme}", "Устранение левой факторизации условный оператор", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1080,7 +1080,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorLogicalExpression() 
         {
-            MessageBox.Show($"Допустимая лексема в условии: переменная или литерал, знак: (<, >, =, <>, <=, >=) или ключевое слово: OR, XOR, AND, Then, а встретилось {actualLexeme}", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Допустимая лексема в условии: переменная или литерал, знак: (<, >, =, <>, <=, >=) или ключевое слово: OR, XOR, AND, Then, а встретилось {actualLexeme}", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -1088,7 +1088,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorWaitingOperationAndOperand() 
         {
-            MessageBox.Show("Не хватает операции и операнда для проверки условия", "Синтаксический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show("Не хватает операции и операнда для проверки условия", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
