@@ -11,7 +11,7 @@ namespace Machines
     /// </summary>
      public class SyntacticAnalysis
      {
-        int check = 0;
+        int success = 0;
         int numLexeme = 0; // Номер лексемы
         int numLogicOperation = 0; // номер логической операции
         string actualLexeme = ""; // текущая лексема
@@ -367,7 +367,7 @@ namespace Machines
             {
                 Expr();
 
-                if (check == 1)
+                if (success == 1)
                 {
                     textBox.Text += $"Логическое выражение №{++numLogicOperation}\n";
 
@@ -382,7 +382,7 @@ namespace Machines
                 }
 
                 matrix.Clear();
-                check = 0;
+                success = 0;
             }
 
             if (actualLexeme != "Then")
@@ -544,7 +544,7 @@ namespace Machines
                             }
                             else
                             {
-                                check = 1;
+                                success = 1;
                             }
 
                             //MessageBox.Show($"T count: {T.Count}");
@@ -1080,7 +1080,7 @@ namespace Machines
         /// </summary>
         private void GetMessageErrorLogicalExpression() 
         {
-            MessageBox.Show($"Ожидалась переменная или литерал, знак: (, <, >, =, ) или ключевое слово: OR, XOR, AND, Then а встретилось {actualLexeme}", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Допустимая лексема в условии: переменная или литерал, знак: (<, >, =, <>, <=, >=) или ключевое слово: OR, XOR, AND, Then, а встретилось {actualLexeme}", "Лексический анализ", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>

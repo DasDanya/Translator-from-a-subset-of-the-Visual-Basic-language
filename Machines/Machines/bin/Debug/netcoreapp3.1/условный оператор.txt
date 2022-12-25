@@ -1,0 +1,10 @@
+Sub Main()
+
+If (a < b) And (b <> 12) And (sds >= 232) Then
+    a = b
+End If
+If q > 12 Then
+    ds = dss
+End If
+
+End Sub
