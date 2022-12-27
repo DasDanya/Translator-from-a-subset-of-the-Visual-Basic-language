@@ -40,10 +40,18 @@ namespace Machines
         }
         private void SelectFileButton_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            try
             {
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    ReadFromFile(openFileDialog.FileName);
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Filter = "Txt files(.txt)|*.txt";
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                        ReadFromFile(openFileDialog.FileName);
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка чтения файла", "Чтение файла", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
