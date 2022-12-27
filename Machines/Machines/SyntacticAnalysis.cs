@@ -358,7 +358,7 @@ namespace Machines
             else
                 Next();
 
-            if (actualLexeme == "Then" || actualLexeme == "/-")
+            if (actualLexeme == "Then" || actualLexeme == "/-" || actualLexeme == "Пустота")
             {
                 GetMessageErrorWaitingExpr();
                 return false;
@@ -367,7 +367,7 @@ namespace Machines
             {
                 Expr();
 
-                if (success == 1)
+                if (success == 1 & matrix.Count > 0)
                 {
                     textBox.Text += $"Логическое выражение №{++numLogicOperation}\n";
 
@@ -387,6 +387,7 @@ namespace Machines
 
             if (actualLexeme != "Then")
             {
+               
                 GetMessageErrorKeyWords("Then");
                 return false;
             }
@@ -432,12 +433,34 @@ namespace Machines
             {
                 if (Classification.isId(actualLexeme) || Classification.isLiteral(actualLexeme)) // Если текущая лексема - операнд
                 {
-                    E.Push(actualLexeme);
                     Next();
-                    Expr();
+                    if (actualLexeme == "(" || Classification.isId(actualLexeme) || Classification.isLiteral(actualLexeme)) // новое условие: после id или литерала не может стоять открывающаяся скобка
+                    {
+                        MessageBox.Show($"После литерала или переменной не может стоять ( , или литерал, или переменная", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        Past();
+                        E.Push(actualLexeme);
+                        Next();
+                        Expr();
+                    }
                 }
                 else if (actualLexeme == "(" || actualLexeme == "<" || actualLexeme == ">" || actualLexeme == "=" || actualLexeme == "<>" || actualLexeme == "Or" || actualLexeme == "Xor" || actualLexeme == "And" || actualLexeme == ")" || actualLexeme == "Then" || actualLexeme == "<=" || actualLexeme == ">=")
                 {
+
+                    if (actualLexeme != "Then" & actualLexeme != ")") // После сравнения должен быть литерал, id или открывающаяся скобка
+                    {
+                        Next();
+                        if (Classification.isId(actualLexeme) || Classification.isLiteral(actualLexeme) || actualLexeme == "(")
+                            Past();
+                        else
+                        {
+                            MessageBox.Show($"Ожидался литерал, переменная или (, а встретилось {actualLexeme}", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
 
                     if (actualLexeme == "(")
                     {
@@ -506,6 +529,17 @@ namespace Machines
                     }
                     else if (actualLexeme == ")")
                     {
+                        Next(); // Новое условие: после открывающей скобки не может быть открывающая
+                        if (actualLexeme == "(")
+                        {
+                            MessageBox.Show($"Ожидался оператор сравнения или Xor, Or, And, а встретилось {actualLexeme}", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else 
+                        {
+                            Past();
+                        }
+
                         if (T.Count == 0)
                         {
                             // Написать ошибку
@@ -579,6 +613,7 @@ namespace Machines
             }
             else
             {
+                MessageBox.Show("Ожидалось продолжение кода, а встретилась пустота", "Логическое выражение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //GetMessageErrorEnd();
                 return;
             }

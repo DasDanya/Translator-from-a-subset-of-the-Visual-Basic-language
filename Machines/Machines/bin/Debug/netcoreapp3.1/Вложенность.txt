@@ -1,14 +1,16 @@
 Sub Main()
+
 If (x > dsd) Then
-If ((dksdjs < djskds)) Then
-Dim jkjdsd As Short
-Else 
-djsdkjd = sjksdjsd
-End If
+  If ((dksdjs < djskds)) Then
+   Dim jkjdsd As Short
+  Else 
+   djsdkjd = sjksdjsd
+  End If
 Else
-If(dksdjsdksd < wkejs) Then
-Dim kdsj As Short = 323 
+ If(dksdjsdksd < wkejs) Then
+   Dim kdsj As Short = 323 
+ End If
 End If
-End If
+
 Dim dkjsdks, sdjksjd As Short
 End Sub
